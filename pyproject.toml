@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nlp_legislative_consultations"
-version = "0.0.1.dev6"
+version = "0.0.1.dev0"
 description = "NLP project analyzing the influence of stakeholder comments on final legal drafts."
 readme = "README.md"
 authors = [
