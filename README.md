@@ -1,83 +1,132 @@
 # nlp_legislative_consultations
 
-#### NLP project analyzing the influence of stakeholder comments on final legal drafts.
+#### NLP data analysis project analyzing the influence of stakeholder comments on final legal drafts.
 
-This repository provides a structured framework for performing NLP analysis on legislative consultation documents. The project follows a standard NLP pipeline approach with distinct modules for each stage of the process.
+This repository provides a framework for performing NLP analysis on legislative consultation documents. The project follows a standard data analysis workflow with directories organized by purpose.
 
 ## Project Structure
 
-The repository is organized around the standard steps of an NLP pipeline:
+```
+nlp_legislative_consultations/
+├── data/
+│   ├── raw/              # Original data files (Excel, CSV, etc.)
+│   └── processed/        # Cleaned and preprocessed data
+├── notebooks/            # Jupyter notebooks for exploration and analysis
+├── scripts/              # Python scripts for the NLP pipeline
+│   ├── data_acquisition
+│   ├── text_preprocessing
+│   ├── modeling
+│   └── evaluation
+├── results/              # Output files (predictions, metrics, visualizations)
+└── requirements.txt      # Python dependencies
+```
 
-* **data_acquisition**: Handling data from Excel files and web sources
-* **text_preprocessing**: Text cleaning, tokenization, and normalization
-* **modeling**: Text understanding, feature extraction, and model training
-* **evaluation**: Model evaluation and metrics
+### Directory Guide
 
-For usage examples, please refer to [notebooks/sample_nlp_legislative_consultations.ipynb](./notebooks/sample_nlp_legislative_consultations.ipynb)
+* **data/**: Store your data files here. Raw data goes in `raw/`, processed data in `processed/`
+* **notebooks/**: Jupyter notebooks for exploratory data analysis and prototyping
+* **scripts/**: Production-ready Python scripts for data processing and modeling
+* **results/**: Model outputs, evaluation metrics, and visualizations
+
+For usage examples, see [notebooks/sample_nlp_legislative_consultations.ipynb](./notebooks/sample_nlp_legislative_consultations.ipynb)
 
 ## Getting Started
 
-### Accessing Virtual Environment in Codespaces
-For bash terminal users wanting to work in a virtual environment of nlp_legislative_consultations, enter these commands:
+### Setup on Codespaces
+
+For bash terminal users in Codespaces:
 
 ```bash
 cd /workspaces/nlp_legislative_consultations
 source .venv/bin/activate
 ```
 
-### Accessing this Package on a Local Linux Server
-This assumes you have internet connection and you already have cloned this repository. Start with these:
+### Setup on Local Linux Server
+
+1. Clone the repository and navigate to it:
 ```bash
-cd SOME_PATH/nlp_legislative_consultations
+cd /path/to/nlp_legislative_consultations
+```
+
+2. Create and activate virtual environment:
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python3 -m pip install --upgrade pip
 ```
 
-#### Local Mode
+3. Install dependencies:
 ```bash
-pip install . --no-cache-dir
+pip install -r requirements.txt
 ```
 
-#### Development Mode
+Or use the Makefile:
 ```bash
-pip install -e .[test] --no-cache-dir --force-reinstall
+make create_venv  # Creates venv and installs dependencies
 ```
 
-## Structure
-* `src/nlp_legislative_consultations`: The main package with NLP pipeline modules:
-  * `data_acquisition/`: Data loading from Excel files and web scraping
-  * `text_preprocessing/`: Text cleaning and preprocessing
-  * `modeling/`: Text understanding and modeling
-  * `evaluation/`: Model evaluation and metrics
-* `notebooks/`: Jupyter notebooks with usage examples
+## Working with the Project
+
+### Running Scripts
+
+Execute Python scripts from the project root:
+
+```bash
+python scripts/your_script.py
+```
+
+### Using Notebooks
+
+Start Jupyter:
+
+```bash
+jupyter notebook
+```
+
+Then open notebooks from the `notebooks/` directory.
 
 ## Linting and Formatting
-This project implements linting and formatting tools via a pre-commit hook using [Ruff](https://docs.astral.sh/ruff/).
 
-### Executing Linting:
-Execute as pre-commit hook:
+This project uses [Ruff](https://docs.astral.sh/ruff/) for linting and formatting via pre-commit hooks.
+
+### Setup pre-commit
+
 ```bash
+pre-commit install
 pre-commit run --all-files
 ```
 
-### Executing Ruff directly:
-To check for linting and formatting errors with automatic fixes:
+### Manual linting
+
 ```bash
 ruff check . --fix
 ruff format
 ```
 
-Checking for included/excluded files and directories:
+Check which files are included/excluded:
 ```bash
 ruff check . -v
 ```
 
-### Ruff Configuration:
-For more details on Ruff's configuration and rules, see our `pyproject.toml` file. To exclude specific rules in your repository, check the [error code](https://docs.astral.sh/ruff/) you would like to exclude and add it in `pyproject.toml`:
+### Configuration
+
+Ruff configuration is in `pyproject.toml`. To exclude specific rules:
+
 ```toml
 [tool.ruff.lint]
 ignore = [
-    "E722" #example
+    "E722"  # example rule to ignore
 ]
 ```
+
+## Dependencies
+
+Core dependencies are listed in `requirements.txt`:
+- **openpyxl**: Excel file handling
+- **pandas**: Data manipulation and analysis
+- **requests**: HTTP requests for web scraping
+- **beautifulsoup4**: HTML/XML parsing
+- **xlrd**: Legacy Excel file support
+
+Development dependencies:
+- **ruff**: Linting and formatting
+- **pre-commit**: Git hooks for code quality

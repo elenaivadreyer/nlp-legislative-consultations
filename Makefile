@@ -3,7 +3,7 @@ SHELL := /bin/bash
 PYTHON_VERSION_X_Y := $(shell python --version | cut -d " " -f 2 | cut -d "." -f 1-2)
 
 # .PHONY: Include targets only if they do not generate a file, these targets are treated as commands to be executed
-.PHONY: codespaces_only create_venv
+.PHONY: codespaces_only create_venv install
 
 codespaces_only: create_venv
 
@@ -13,9 +13,13 @@ create_venv:
 	python3 -m venv .venv
 	source .venv/bin/activate && \
 	python3 -m pip install --upgrade pip && \
-	echo "Installing dependencies needed for linting." && \
-	pip install -e .[test] --force-reinstall --no-cache-dir && \
+	echo "Installing dependencies from requirements.txt." && \
+	pip install -r requirements.txt --no-cache-dir && \
 	echo "Virtual environment created and dependencies installed."
+
+install:
+	echo "Installing dependencies from requirements.txt."
+	pip install -r requirements.txt --no-cache-dir
 
 system_information:
 	echo "Information of the environment and select system."

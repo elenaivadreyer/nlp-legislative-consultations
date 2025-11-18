@@ -1,24 +1,10 @@
-[build-system]
-requires = ["setuptools >= 69.1.0"]
-build-backend = "setuptools.build_meta"
+# Python project configuration for data analysis
+# This is not a package - dependencies are managed via pip/venv
 
-[project]
-name = "nlp_legislative_consultations"
-version = "0.0.1.dev0"
-description = "NLP project analyzing the influence of stakeholder comments on final legal drafts."
-readme = "README.md"
-authors = [
-    {name = "Triin Tamra", email = "triin.tamra@bmwk.bund.de"},
-]
-maintainers = [{name = "Triin Tamra", email = "triin.tamra@bmwk.bund.de"}]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.11"
-]
 requires-python = ">=3.11"
+
+# Core dependencies for NLP data analysis
+# Install with: pip install -r requirements.txt (create this file from dependencies below)
 dependencies = [
     'openpyxl==3.1.2',
     'pandas==2.1.4',
@@ -27,16 +13,11 @@ dependencies = [
     'xlrd==2.0.1',
 ]
 
-[project.optional-dependencies]
-test = [
+# Development dependencies
+dev-dependencies = [
     "ruff==0.8.2",
     "pre-commit==3.6.0",
 ]
-
-[project.urls]
-Documentation = "https://github.com/elenaivadreyer/nlp_legislative_consultations/tree/main#readme"
-Source = "https://github.com/elenaivadreyer/nlp_legislative_consultations"
-Tracker = "https://github.com/elenaivadreyer/nlp_legislative_consultations/issues"
 
 #Global ruff configuration
 [tool.ruff]
