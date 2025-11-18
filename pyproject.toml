@@ -20,46 +20,17 @@ classifiers = [
 ]
 requires-python = ">=3.11"
 dependencies = [
-    'openpyxl==3.1.2', # NOTE: necessary for pd.read_excel()
-    'pandas==2.1.4', # NOTE: 2.2.0 does not work with data_df.to_sql()! [02.02.2024]
+    'openpyxl==3.1.2',
+    'pandas==2.1.4',
     'requests==2.31.0',
-    'sqlalchemy==1.4.51',
-    'bs4==0.0.2',
     'beautifulsoup4==4.12.3',
-    'xlrd==2.0.1', # NOTE: this is necessary for older .xls files, pd.read_excel()
+    'xlrd==2.0.1',
 ]
 
 [project.optional-dependencies]
 test = [
-    #"bandit[toml]==1.7.7", #commented due to ruff implementation, can be deleted in a later iteration
-    #"black==24.1.1", #commented due to ruff implementation, can be deleted in a later iteration
     "ruff==0.8.2",
-    "check-manifest==0.49",
-    "coverage[toml]==7.4.1",
-    "coverage-badge==1.1.0", # HINT: for a test coverage to see in README.md
-    #"flake8==7.0.0", #commented due to ruff implementation, can be deleted in a later iteration
-    #"flake8-bugbear==24.2.6",
-    #"flake8-docstrings==1.7.0",
-    #"flake8-formatter_junit_xml==0.0.6",
-    #"flake8-pyproject==1.2.3",
-    "ipykernel==6.29.3",
-    #"isort==5.13.2", #commented due to ruff implementation, can be deleted in a later iteration
-    "matplotlib==3.8.3",
     "pre-commit==3.6.0",
-    "psycopg2==2.9.9",
-    #"pylint==3.0.3", #commented due to ruff implementation, can be deleted in a later iteration
-    #"pylint_junit==0.3.4",
-    "pytest==8.0.0",
-    "pytest-cov==4.1.0",
-    "pytest-github-actions-annotate-failures==0.2.0",
-    "pytest-mock==3.12.0", # TODO: previously <3.10.1, revert if fails.
-    "pytest-runner==6.0.1",
-    "python-dotenv==1.0.1", # HINT: This is used only in testing environment of a this project-package
-    #"pyupgrade==3.15.0", #commented due to ruff implementation, can be deleted in a later iteration
-    "shellcheck-py==0.9.0.6"
-    #"mypy==1.8.0" # HINT: uncomment if it's clear it works as intended.
-    # pycln? #Was commented out already but now obsolete due to ruff implementation
-    # pyright?
 ]
 
 [project.urls]
@@ -198,30 +169,7 @@ line-ending = "auto"
 docstring-code-format = true
 docstring-code-line-length = "dynamic"
 
-
 #The following configurations are not handled by Ruff
-[tool.coverage.report]
-#show_missing = true
-fail_under = 100
-#exclude_lines = [
-#    # Have to re-enable the standard pragma
-#    "pragma: no cover",
-#
-#    # Don't complain about missing debug-only code:
-#    "def __repr__",
-#    "if self.debug",
-#
-#    # Don't complain if tests don't hit defensive assertion code:
-#    "raise AssertionError",
-#    "raise NotImplementedError",
-#
-#    # Don't complain if non-runnable code isn't run:
-#    "if __name__ == .__main__.:",
-#]
-
-[tool.coverage.run]
-branch = true
-
 # Pre-commit hooks related config.
 [tool.interrogate]
 ignore-init-method = true
@@ -243,87 +191,3 @@ whitelist-regex = []
 color = true
 generate-badge = "."
 badge-format = "svg"
-
-#[tool.mypy] #A mypy integration into ruff is currently being developed
-#files = "airflow"
-# 3rd party import
-#ignore_missing_imports = true
-# dynamic typing
-#disallow_any_unimported = true
-#disallow_any_expr = false
-#disallow_any_decorated = false
-#disallow_any_explicit = true
-#disallow_any_generics = false
-#disallow_subclassing_any = true
-# platform
-#python_version = "3.10"
-# untyped
-#disallow_untyped_calls = true
-#disallow_untyped_defs = true
-#disallow_incomplete_defs = true
-#disallow_untyped_decorators = true
-# None and Optional
-#no_implicit_optional = true
-# Warnings
-#warn_return_any = false
-#warn_unreachable = true
-# Misc
-#pretty = true
-
-[tool.pyright]
-include = ["src"]
-exclude = [
-    "**/node_modules",
-    "**/__pycache__",
-]
-venv = "env37"
-
-reportMissingImports = true
-reportMissingTypeStubs = false
-
-pythonVersion = "3.7"
-pythonPlatform = "Linux"
-
-executionEnvironments = [
-  { root = "src" }
-]
-
-# Warning received -- PytestConfigWarning: Unknown config option: adopts.
-# TODO: adopts is commented out until resolved. Please use "make run_pytest_with_cov" until further notice.
-[tool.pytest.ini_options]
-# adopts = "--cov-report xml:coverage.xml --cov src --cov-fail-under 0 --cov-append -m 'not integration'"
-pythonpath = [
-  "src"
-]
-testpaths = "tests"
-junit_family = "xunit2"
-markers = [
-    "integration: marks as integration test",
-    "notebooks: marks as notebook test",
-    "gpu: marks as gpu test",
-    "spark: marks tests which need Spark",
-    "slow: marks tests as slow",
-    "unit: fast offline tests",
-]
-
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-envlist = py, integration, spark, all
-
-[testenv]
-commands =
-    pytest -m "not integration and not spark" {posargs}
-
-[testenv:integration]
-commands =
-    pytest -m "integration" {posargs}
-
-[testenv:all]
-extras = all
-setenv =
-       PYSPARK_DRIVER_PYTHON = {envpython}
-       PYSPARK_PYTHON = {envpython}
-commands =
-    pytest {posargs}
-"""
