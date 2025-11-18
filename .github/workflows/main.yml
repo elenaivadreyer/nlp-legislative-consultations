@@ -1,0 +1,69 @@
+name: All Tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  clear-cache:
+    runs-on: ubuntu-latest
+    # NOTE Not possible with runs-on: debian:bullseye (No Runner found in Actions, forever in queue)
+    steps:
+      - name: Clear all cached dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache
+          key: ${{ runner.os }}-clear-cache-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-clear-cache-
+
+  build:
+    name: CI & Linting (Python ${{ matrix.python-version }}, Pandas ${{ matrix.pandas-version }})
+    runs-on: ubuntu-latest
+    # Not possible with runs-on: debian:bullseye (No Runner found in Actions, forever in queue)
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ['3.11']
+        pandas-version: ['2.1.4']
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Uncomment Installation PostgreSQL if it's clear we need them for full integration tests (Please note default PostgreSQL would be shown, but different version)
+      #- name: Install and adapt PostgreSQL
+      #  run: |
+      #    make install_postgresql create_project_db
+      - name: Install dependencies packages
+        run: |
+          make create_venv
+          # force reinstall pandas with a certain version:
+          source .venv/bin/activate && pip install pandas==${{ matrix.pandas-version }} --force-reinstall
+          # TODO: tests with various sqlalchemy versions?
+      - name: INFO
+        run: |
+          make system_information
+      - name: Linting review precommit
+        if: always()
+        run: source .venv/bin/activate && pre-commit run --all-files
+      - name: Test with pytest including coverage check
+        env:
+          POSTGRES_USER: "project_user"
+          POSTGRES_PASSWORD: "project_pass"
+          POSTGRES_HOSTNAME: "localhost"
+          POSTGRES_PORT: "5432"
+          POSTGRES_DB_NAME: "project_db"
+          # Note: these POSTGRES credentials are not yet used by unit tests in Actions [coming soon]
+        run: |
+          make run_pytest_with_cov
+      - name: Check Coverage Badge for any changes that is used for README.md
+        if: matrix.python-version != '3.11' # Coverage is slightly different for Python 3.11
+        run: |
+          # make check_coverage_badge_for_any_changes
+          echo "Coverage badge check is skipped until further notice, currently no code and no tests are implemented."

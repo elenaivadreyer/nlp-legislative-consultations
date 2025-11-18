@@ -1,0 +1,133 @@
+name: PR Validate Commit Messages and Version
+
+on:
+  pull_request:
+    branches:
+      - main  # Run on PRs targeting main
+
+jobs:
+  pr-check-required-criteria:
+    if: github.event_name == 'pull_request' # Only runs on PRs, skips 'push' events on main (it is kept in place in case "on push to main" is introduced above)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure full commit history is fetched
+
+      - name: Fetch commits between base and head (all commit messages in the PR)
+        id: fetch-commits
+        run: |
+          # Get all commit messages in the PR
+          commits=$(git log --format=%B origin/${{ github.base_ref }}..${{ github.event.pull_request.head.sha }})
+          echo "A list of commits received for GH Actions: "
+          echo "$commits"
+
+          # Because of multilines, it is not possible to export it to $GITHUB_OUTPUT for the next steps to access to.
+          # So, git log will be directly called in each step instead.
+
+      - name: Semantic Versioning Cases - Get Commit Messages and Validate
+        id: check_any_commit_msg_contains_keyword_for_semantic_versioning
+        run: |
+          # Define the required keywords (case-insensitive, supports multi-word)
+          KEYWORDS=("major change" "breaking change" "minor change" "patch change" "hotfix" "bug fix" "bugfix")
+
+          # Convert pipe characters back into newlines
+          commits=$(git log --format=%B origin/${{ github.base_ref }}..${{ github.event.pull_request.head.sha }})
+
+          # Convert commit messages to lowercase for case-insensitive check
+          LOWER_COMMITS=$(echo "$commits" | tr '[:upper:]' '[:lower:]')
+
+          # Check if at least one commit contains a required keyword
+          MATCH_FOUND=false
+          for KEYWORD in "${KEYWORDS[@]}"; do
+            if echo "$LOWER_COMMITS" | grep -iq -- "$KEYWORD"; then
+              MATCH_FOUND=true
+              break
+            fi
+          done
+
+          # Fail if no keyword was found in any commit message
+          if [ "$MATCH_FOUND" = false ]; then
+            echo "❌ No commit message contains a required keyword from any in the list (case insensitive):"
+            for keyword in "${KEYWORDS[@]}"; do
+                echo "- ${keyword^^}"
+            done
+            exit 1
+          else
+            echo "✅ Required keyword for semantic versioning case found in commit messages."
+          fi
+
+      - name: Check at least one commit message has an issue number
+        id: check_any_commit_msg_contains_issue_number
+        if: always()
+        # This always() ensures that this step runs regardless of previous steps' success or failure. If ANY step fails, PR merge will still be blocked.
+        run: |
+          commits=$(git log --format=%B origin/${{ github.base_ref }}..${{ github.event.pull_request.head.sha }})
+          if echo "$commits" | grep -qE '#[0-9]+'; then
+            echo "✅ Issue number(s) found in commit messages."
+          else
+            echo "❌ No issue number found in commit messages! Please include an issue reference, a hashtag immediately followed by integer value like: #123456789"
+            exit 1
+          fi
+
+      - name: Check if this branch version is newer than latest main branch version
+        id: validate_branch_version_compared_to_latest_main_branch_version
+        if: always()
+        # This always() ensures that this step runs regardless of previous steps' success or failure. If ANY step fails, PR merge will still be blocked.
+        run: |
+          # Fetch the latest main branch
+          git fetch origin main
+
+          # Get 'version = ' lines from pyproject.toml in both branches - current branch and main branch
+          pr_version=$(grep '^version = ' pyproject.toml | sed -E 's/^version = "(.*)"/\1/')
+          main_version=$(git show origin/main:pyproject.toml | grep '^version = ' | sed -E 's/^version = "(.*)"/\1/')
+
+          echo "PR version: $pr_version"
+          echo "Main branch version: $main_version"
+
+          # Normalize versions by ensuring that "devN" is always less than the base version
+            # Example 1: 0.0.1.dev1 becomes 0.0.1~1 (it is smaller/older than 0.0.1)
+            # Example 2: 0.0.1.dev10 becomes 0.0.1~10 (which is smaller/older than 0.0.1)
+          normalized_main_version=$(echo "$main_version" | sed -E 's/^(.*)\.dev([0-9]+)$/\1~\2/')
+          normalized_pr_version=$(echo "$pr_version" | sed -E 's/^(.*)\.dev([0-9]+)$/\1~\2/')
+
+          echo ""
+          echo "PR Version, normalized:   $normalized_pr_version"
+          echo "Main version, normalized: $normalized_main_version"
+          echo ""
+
+          # NOTE: corner cases have been manually tested to ensure it is as expected.
+            # step by step done to execute tests
+            # main 0.0.1.dev0   PR 0.0.0          --> exit 1. Expected test passed.
+            # main 0.0.1.dev0   PR 0.0.1.dev0     --> exit 1. Expected test passed.
+            # main 0.0.1.dev0   PR 0.0.1.dev1     --> exit 0. Expected test passed.
+            # main 0.0.1.dev0   PR 0.0.1.dev10    --> exit 0. Expected test passed.
+            # main branch changed version to 0.0.1.dev1 --> Jobs in PRs auto-triggered (with "on push to main")? No, BUT "Resolve conflicts" becomes the MAIN blocker. This is good too.
+            # main 0.0.1.dev1   PR 0.0.1.dev10    --> exit 0. Expected test passed.
+            # main 0.0.1.dev1   PR 0.0.1          --> exit 0. Expected test passed.
+            # main branch changed version to 1.0.0 --> "Resolve conflicts" is now main blocker. This is as desired.
+            # main 1.0.0        PR 0.0.1          --> exit 1. Expected test passed.
+            # main 1.0.0        PR 1.0.1          --> exit 0. Expected test passed.
+            # main 1.0.1        PR 1.0.0          --> exit 1. Expected test passed.
+            # main 1.0.0        PR 10.0.0         --> exit 0. Expected test passed.
+            # main 1.0.0        PR 1.0.0.dev10    --> exit 1. Expected test passed.
+            # main 1.0.0        PR 1.0.0.dev0     --> exit 1. Expected test passed.
+            # main 1.0.0        PR 1.0.1.dev0     --> exit 0. Expected test passed.
+            # main 1.0.0        PR 9.0.0          --> exit 0. Expected test passed.
+            # main 9.0.0        PR 10.0.0         --> exit 0. Expected test passed.
+            # main 10.0.0       PR 9.0.0          --> exit 1. Expected test passed.
+
+          # Compare and validate version in this PR branch
+          if [[ "$pr_version" == "$main_version" ]]; then
+            echo "❌ The version has not changed. Please review your branch and compare it with latest main branch."
+            exit 1
+          elif [[ $(printf "%s\n%s" "$normalized_main_version" "$normalized_pr_version" | sort -V | head -n1) == "$normalized_pr_version" ]]; then
+            echo "The version of this branch is older than the latest main branch. Please review and compare with the latest main branch."
+            exit 1
+          elif [[ $(printf "%s\n%s" "$normalized_main_version" "$normalized_pr_version" | sort -V | tail -n1) == "$normalized_pr_version" ]]; then
+            echo "✅ The version has been updated correctly: PR version is newer than main version."
+          else
+            echo "❌❌ Something is wrong, this else check should not have happened. Aborting now. ❌❌"
+            exit 1
+          fi

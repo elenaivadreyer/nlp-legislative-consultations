@@ -1,0 +1,68 @@
+name: Check Required GitHub Token
+
+on:
+    workflow_run:
+      workflows:
+        - "Finish tasks to fully transform template into repository"
+      types:
+        - completed
+    workflow_dispatch: # Enables manual trigger
+
+
+jobs:
+    check-required-github-token:
+      runs-on: ubuntu-latest
+      if: ${{ github.event.workflow_run.conclusion == 'success' }}
+      steps:
+        - name: Check if GitHub Token exists
+          run: |
+            if [ -z "${{ secrets.GH_ACTIONS_WORKFLOW_TOKEN }}" ]; then
+                echo "GitHub Token named GH_ACTIONS_WORKFLOW_TOKEN is missing - it is needed for an access to Github Actions."
+                echo "Please add GH_ACTIONS_WORKFLOW_TOKEN as a secret and then rerun this job. For how-to, please see readme file(s)".
+                exit 1
+            else
+                echo "A secret named GH_ACTIONS_WORKFLOW_TOKEN exists. Proceeding to the next steps."
+            fi
+
+        - name: Check if GitHub Actions API can be accessed
+          run: |
+            # Define the API URL and repository name
+            api_url="https://api.github.com/repos/${{ github.repository }}/actions/runs"
+
+            # Make a request to the GitHub API and capture the response
+            response=$(curl -s -o response.json -w "%{http_code}" -H "Authorization: Bearer ${{ secrets.GH_ACTIONS_WORKFLOW_TOKEN }}" \
+                -H "Accept: application/vnd.github+json" "$api_url")
+
+            # Extract HTTP status code
+            http_status=$(echo "$response" | tail -n1)
+
+            # Check if the status code is 200 (OK)
+            if [ "$http_status" -ne 200 ]; then
+                echo "❌ Error: Unable to access GitHub Actions API. HTTP Status Code: $http_status."
+                echo "Please check the permissions of the GH_ACTIONS_WORKFLOW_TOKEN."
+                exit 1
+            else
+                echo "✅ Successfully accessed the GitHub Actions API. Proceeding to the next steps."
+            fi
+
+        - name: Check if Repository Settings API can be accessed
+          run: |
+            # Define the Repository Settings API URL
+            settings_api_url="https://api.github.com/repos/${{ github.repository }}"
+
+            # Make a request to the GitHub API and capture the response
+            response=$(curl -s -o response.json -w "%{http_code}" \
+                -H "Authorization: Bearer ${{ secrets.GH_ACTIONS_WORKFLOW_TOKEN }}" \
+                -H "Accept: application/vnd.github+json" "$settings_api_url")
+
+            # Extract HTTP status code
+            http_status=$(echo "$response" | tail -n1)
+
+            # Check if the status code is 200 (OK)
+            if [ "$http_status" -ne 200 ]; then
+                echo "❌ Error: Unable to access Repository Settings API. HTTP Status Code: $http_status."
+                echo "Please check the permissions of GH_ACTIONS_WORKFLOW_TOKEN."
+                exit 1
+            else
+                echo "✅ Successfully accessed Repository Settings API."
+            fi

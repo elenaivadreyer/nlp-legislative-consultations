@@ -1,0 +1,89 @@
+# pre-commit: A framework for managing and maintaining multi-language pre-commit hooks
+# after configuration is complete, do these steps:
+    # pre-commit install
+    # pre-commit run --all-files
+# to skip pre-commmit-config when git-committing in terminal, add this: "--no-verify" option.
+
+ci:
+  autoupdate_commit_msg: "chore: update pre-commit hooks"
+  autofix_commit_msg: "style: pre-commit fixes"
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: mixed-line-ending
+      - id: name-tests-test
+        args: [--pytest-test-first]
+  # pygrep-hooks: a collection of fast, cheap, regex based pre-commit hooks
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-no-log-warn
+      - id: python-no-eval
+      - id: rst-directive-colons
+      - id: rst-inline-touching-normal
+  # check-manifest: This makes sense only if you have MANIFEST.in (TODO:review)
+  - repo: https://github.com/mgedmin/check-manifest
+    rev: "0.47"
+    hooks:
+      - id: check-manifest
+        stages: [manual]
+  # pip audit to check for known pip vulnerabilities, supports pyproject.toml
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.7.1
+    hooks:
+      - id: pip-audit
+  #Ruff linter and formatter
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.2
+    hooks:
+      # Recommended to run linter first of automatic fixes are enabled (as some linting fixes might require reformatting)
+      - id: ruff
+        #Automatic linting fixes
+        types_or: [ python, pyi] # jupyter commented out for now
+        args: [ --fix ] #note: at the moment only safe fixes are allowed. Unsafe fixes could alter meaning and intent of code and are therefore disallowed. Fixes have to be done manually
+      - id: ruff-format
+        types_or: [ python, pyi] # jupyter commented out for now
+
+  #Commented pre-commit hooks: Not covered by Ruff and were commented out in original template version, therefore kept here until further notice
+
+  # reorder-python-imports: similar to isort, but uses static analysis more. (if we want to use this instead, uncomment them)
+  #-   repo: https://github.com/asottile/reorder-python-imports
+  #  rev: v3.12.0
+  #  hooks:
+  #  -   id: reorder-python-imports
+  # codespell fixes common misspelling [commented out for time being]
+  # - repo: https://github.com/codespell-project/codespell
+  #   rev: v2.1.0
+  #   hooks:
+  #     - id: codespell
+  #- repo: https://github.com/asottile/pyupgrade #Pyupgrade commented because covered by UP package in ruff
+  #  rev: v2.31.0
+  #  hooks:
+  #    - id: pyupgrade
+  #      args: [--py39-plus]
+  #- repo: https://github.com/pre-commit/mirrors-mypy
+  #  rev: 'v1.8.0'  # Use the sha / tag you want to point at
+  #  hooks:
+  #  -   id: mypy
+  # interrogate: checks codebase for missing docstrings [commented out for time being due to priorities]
+  #-   repo: https://github.com/econchick/interrogate
+  #    rev: 1.4.0
+  #    hooks:
+  #    - id: interrogate
+  #      args: [-vv, -i, --fail-under=80]
+  # check for any failing unit tests (if there is a failing test, it raises as failed only if "pre-commit run --all-files")
+    # - repo: local
+  #   hooks:
+  #     - id: pytest-check
+  #       name: pytest-check
+  #       entry: make run_pytest_with_cov
+  #       language: system
+  #       types: [python]
+  #       pass_filenames: false
+  #       always_run: true

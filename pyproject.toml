@@ -1,0 +1,329 @@
+[build-system]
+requires = ["setuptools >= 69.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "data_template_project_name"
+version = "0.0.1.dev6"
+description = "project_description"
+readme = "README.md"
+authors = [
+    {name = "Triin Tamra", email = "triin.tamra@bmwk.bund.de"},
+]
+maintainers = [{name = "Triin Tamra", email = "triin.tamra@bmwk.bund.de"}]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11"
+]
+requires-python = ">=3.11"
+dependencies = [
+    'openpyxl==3.1.2', # NOTE: necessary for pd.read_excel()
+    'pandas==2.1.4', # NOTE: 2.2.0 does not work with data_df.to_sql()! [02.02.2024]
+    'requests==2.31.0',
+    'sqlalchemy==1.4.51',
+    'bs4==0.0.2',
+    'beautifulsoup4==4.12.3',
+    'xlrd==2.0.1', # NOTE: this is necessary for older .xls files, pd.read_excel()
+]
+
+[project.optional-dependencies]
+test = [
+    #"bandit[toml]==1.7.7", #commented due to ruff implementation, can be deleted in a later iteration
+    #"black==24.1.1", #commented due to ruff implementation, can be deleted in a later iteration
+    "ruff==0.8.2",
+    "check-manifest==0.49",
+    "coverage[toml]==7.4.1",
+    "coverage-badge==1.1.0", # HINT: for a test coverage to see in README.md
+    #"flake8==7.0.0", #commented due to ruff implementation, can be deleted in a later iteration
+    #"flake8-bugbear==24.2.6",
+    #"flake8-docstrings==1.7.0",
+    #"flake8-formatter_junit_xml==0.0.6",
+    #"flake8-pyproject==1.2.3",
+    "ipykernel==6.29.3",
+    #"isort==5.13.2", #commented due to ruff implementation, can be deleted in a later iteration
+    "matplotlib==3.8.3",
+    "pre-commit==3.6.0",
+    "psycopg2==2.9.9",
+    #"pylint==3.0.3", #commented due to ruff implementation, can be deleted in a later iteration
+    #"pylint_junit==0.3.4",
+    "pytest==8.0.0",
+    "pytest-cov==4.1.0",
+    "pytest-github-actions-annotate-failures==0.2.0",
+    "pytest-mock==3.12.0", # TODO: previously <3.10.1, revert if fails.
+    "pytest-runner==6.0.1",
+    "python-dotenv==1.0.1", # HINT: This is used only in testing environment of a this project-package
+    #"pyupgrade==3.15.0", #commented due to ruff implementation, can be deleted in a later iteration
+    "shellcheck-py==0.9.0.6"
+    #"mypy==1.8.0" # HINT: uncomment if it's clear it works as intended.
+    # pycln? #Was commented out already but now obsolete due to ruff implementation
+    # pyright?
+]
+
+[project.urls]
+Documentation = "https://github.com/author_name/data_template_project_name/tree/main#readme"
+Source = "https://github.com/author_name/data_template_project_name"
+Tracker = "https://github.com/author_name/data_template_project_name/issues"
+
+#Global ruff configuration
+[tool.ruff]
+
+#global exlusions as defined in original template version
+exclude = [
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".eggs",
+    ".cache",
+    ".tox",
+    "venv",
+    ".venv",
+    ".env",
+    "_build",
+    "buck-out",
+    "build",
+    "__pycache__",
+    "dist",
+    "nssm",
+    "obj",
+    "out",
+    "packages",
+    "pywin32",
+    "swagger_client"
+]
+
+extend-exclude = ["*.ipynb"]
+
+#In previous version, specified in black, flake8 and pylint config
+line-length = 120
+
+#Ruff linting configuration
+[tool.ruff.lint]
+select = [
+    #Here it's possible to select ALL ruff rules which is quite extensive. I selected those that cover the ruff default config + the previously configured linting/formatting jobs
+    "S", #The S package by ruff fully replaces bandit and checks code for security vulnerabilities
+    "E", #Pycodestyle checks code against PEP8 style conventions (Ruff default + flake8 config)
+    "F", #Pyflakes checks code for errors and potential issues w/o enforcing formatting (Ruff default + flake8 config)
+    "W", #pycodestyle Warning issues warnings for rules w/o failure (flake8 config)
+    "B", #flake8-bugbear detects likely bugs in the code (flake8 config)
+    "I", #The I package by ruff replaces isort
+    "PL", #pylint (Includes all pylint features (C, E, R, W), however direct equivalents for previous pylint config do not fully exist in ruff)
+    "N", #flake8-naming plugin enforces PEP8 naming conventions (snake_case, PascalCase, UPPER_CASE, therefore no specific config of these necessary)
+    "D", #Pydocstyle enforces PEP257 docstring conventions (previosuly enforced through flake8-docstrings, both packages based on same pydocstyle rules)
+    "UP", #Pyupgrade (Automatically upgrades syntax for newer versions of the language)
+    "ANN", #flake8-annotations (detects absence of function annotations)
+    "A", #flake8-builtins (checks for python builtins being used as variables or parameters)
+    "COM", #flake8-commas (checks adherence to trailing comma rules)
+    "C4", #flake8-comprehensions (helps writing better list/set/dict comprehensions)
+    "RUF", #Ruff-specific rules ()
+    "PGH", #Pygrep-hooks (rules for checking pre-commit hooks)
+    "T10", "T20", #check for debugging statements which are not desirable in production code
+    #"PT", #Potentially include later: Flake8-pytest-style (checks inconsistencies/common style issues with pytest-based tests)
+    #"Q", #Potentially include later: flake8-quotes
+    #SIM, #flake8-simplify
+    #AIR, #Airflow
+]
+
+#Ignoring specific rule codes
+ignore = [
+    "E722", #Do not use bare except (ignored in previous template version)
+    "D100", #all mandatory requirements for docstrings in public functions, modules, etc excluded
+    "D101", #all mandatory requirements for docstrings in public functions, modules, etc excluded
+    "D102", #all mandatory requirements for docstrings in public functions, modules, etc excluded
+    "D103", #all mandatory requirements for docstrings in public functions, modules, etc excluded
+    "D104", #all mandatory requirements for docstrings in public functions, modules, etc excluded
+    "D105", #all mandatory requirements for docstrings in public functions, modules, etc excluded
+    "D106", #all mandatory requirements for docstrings in public functions, modules, etc excluded
+    "D107", #all mandatory requirements for docstrings in public functions, modules, etc excluded
+    "D211", #No blank lines allowed before class docstring (not compatible with D203 which enforces 1 blank line before docstring --> D203 preferred)
+    "D212", #Multi-line docstring summary should start at the first line (not compatible with D213, which allows multiline docstring to start at second line --> D213 preferred)
+    "D404", #First word of the docstring should not be "This" --> not a desired rule, therefore excluded
+    "PLR2004", #Magic value used in comparison, consider replacing {value} with a constant variable --> not a desired rule, therefore excluded
+    "N801", #Class name {name} should use CapWords convention --> not a desired rule at the moment, since may class names currently violate this rule. TO DO: Enforce later
+    "COM812", #creates issues with formatter
+    "D203", #creates issues with formatter
+    "D401" #non-imperative-mood: Not a desired rule, therefore excluded
+]
+
+# Allows unused variables when underscore-prefixed
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+#Excluding directories from specific linting checks
+[tool.ruff.lint.per-file-ignores]
+
+#bandit exlusions as defined in the original template version
+#Original template setting from pyproject.toml: [tool.bandit] > exclude_dirs = ["tests","scripts"]
+"tests/*" = ["S", "PL", "F", "E", "W", "B", "ANN002", "ANN003"] #pylint + flake8 also excluded in tests as defined in the original template version. Added ANN002, ANN003 ignores.
+"scripts/*" = ["S"]
+
+[tool.ruff.lint.isort]
+#isort profile = black as defined in the template. Most of the isort profile = black cannot be recreated in ruff, therefore commented
+split-on-trailing-comma = true
+#multi-line-output = 3
+#include-trailing-comma = true
+#force-grid-wrap = 0
+#use-parentheses = true
+#ensure-newline-before-comments = true
+#line-length = 88
+
+[tool.ruff.lint.pylint]
+#compatible pylint DESIGN and REFACTORING configurations in ruff
+max-args = 5
+max-bool-expr = 5
+max-branches = 12
+max-locals = 15
+max-public-methods = 20
+max-returns = 6
+max-statements = 50
+max-nested-blocks = 5
+
+[tool.ruff.format]
+#Black replacement --> Ruff format
+
+#Like Black, uses double quotes for strings (remove if not desired)
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+# Auto-formatting of code examples in docstrings (remove if not desired)
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+
+#The following configurations are not handled by Ruff
+[tool.coverage.report]
+#show_missing = true
+fail_under = 100
+#exclude_lines = [
+#    # Have to re-enable the standard pragma
+#    "pragma: no cover",
+#
+#    # Don't complain about missing debug-only code:
+#    "def __repr__",
+#    "if self.debug",
+#
+#    # Don't complain if tests don't hit defensive assertion code:
+#    "raise AssertionError",
+#    "raise NotImplementedError",
+#
+#    # Don't complain if non-runnable code isn't run:
+#    "if __name__ == .__main__.:",
+#]
+
+[tool.coverage.run]
+branch = true
+
+# Pre-commit hooks related config.
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = false
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = true
+ignore-nested-functions = false
+ignore-nested-classes = true
+ignore-setters = false
+fail-under = 95
+exclude = ["setup.py", "docs", "build"]
+ignore-regex = ["^get$", "^mock_.*", ".*BaseClass.*"]
+verbose = 0
+quiet = false
+whitelist-regex = []
+color = true
+generate-badge = "."
+badge-format = "svg"
+
+#[tool.mypy] #A mypy integration into ruff is currently being developed
+#files = "airflow"
+# 3rd party import
+#ignore_missing_imports = true
+# dynamic typing
+#disallow_any_unimported = true
+#disallow_any_expr = false
+#disallow_any_decorated = false
+#disallow_any_explicit = true
+#disallow_any_generics = false
+#disallow_subclassing_any = true
+# platform
+#python_version = "3.10"
+# untyped
+#disallow_untyped_calls = true
+#disallow_untyped_defs = true
+#disallow_incomplete_defs = true
+#disallow_untyped_decorators = true
+# None and Optional
+#no_implicit_optional = true
+# Warnings
+#warn_return_any = false
+#warn_unreachable = true
+# Misc
+#pretty = true
+
+[tool.pyright]
+include = ["src"]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+]
+venv = "env37"
+
+reportMissingImports = true
+reportMissingTypeStubs = false
+
+pythonVersion = "3.7"
+pythonPlatform = "Linux"
+
+executionEnvironments = [
+  { root = "src" }
+]
+
+# Warning received -- PytestConfigWarning: Unknown config option: adopts.
+# TODO: adopts is commented out until resolved. Please use "make run_pytest_with_cov" until further notice.
+[tool.pytest.ini_options]
+# adopts = "--cov-report xml:coverage.xml --cov src --cov-fail-under 0 --cov-append -m 'not integration'"
+pythonpath = [
+  "src"
+]
+testpaths = "tests"
+junit_family = "xunit2"
+markers = [
+    "integration: marks as integration test",
+    "notebooks: marks as notebook test",
+    "gpu: marks as gpu test",
+    "spark: marks tests which need Spark",
+    "slow: marks tests as slow",
+    "unit: fast offline tests",
+]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py, integration, spark, all
+
+[testenv]
+commands =
+    pytest -m "not integration and not spark" {posargs}
+
+[testenv:integration]
+commands =
+    pytest -m "integration" {posargs}
+
+[testenv:all]
+extras = all
+setenv =
+       PYSPARK_DRIVER_PYTHON = {envpython}
+       PYSPARK_PYTHON = {envpython}
+commands =
+    pytest {posargs}
+"""

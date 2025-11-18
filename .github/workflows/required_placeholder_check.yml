@@ -1,0 +1,14 @@
+name: Required Placeholder Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  pass-required-placeholder-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pass Required Placeholder Check
+        run: echo "✅ Required Placeholder check passed!"

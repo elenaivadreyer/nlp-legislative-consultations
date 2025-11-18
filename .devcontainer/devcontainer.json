@@ -1,0 +1,101 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/python-3
+{
+	"name": "Python 3",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "..",
+		"args": {
+			// A list of available Python Tags: https://hub.docker.com/_/python
+			"VARIANT": "3.11-bookworm"
+		}
+	},
+	// Set *default* container specific settings.json values on container create.
+	// Configure tool-specific properties
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"python.defaultInterpreterPath": "/workspaces/data_template_project_name/.venv/bin/python",
+				"python.terminal.activateEnvironment": true,
+				// "python.terminal.activateEnvInCurrentTerminal": true,
+				"python.testing.pytestArgs": [
+					"tests"
+				],
+				"python.testing.pytestEnabled": true,
+				"python.testing.unittestEnabled": false,
+				"terminal.integrated.env.linux": {
+					"POSTGRES_USER": "project_user",
+					"POSTGRES_PASSWORD": "project_pass",
+					"POSTGRES_HOSTNAME": "localhost",
+					"POSTGRES_PORT": "5432",
+					"POSTGRES_DB_NAME": "project_db"
+				},
+				// TODO: use default postgresql client/server? Credentials still have to be manually entered at first container build.
+				"psql.connections": [
+					{
+						"label": "Project DB Testing",
+						"host": "localhost",
+						"port": "5432",
+						"user": "project_user",
+						"password": "project_pass",
+						"databases": [
+							"project_db"
+						]
+					}
+				],
+				// NOTE: some paths referring to the ones of data_template_project_name/.venv is recommended (instead of built-in standard paths): [TODO: this is to be checked]
+				// "data_template_project_name" package for example can be noticed that it exists.
+				// pyproject.toml can be correctly considered (flake8 line width for example)
+				"python.testing.pytestPath": "/workspaces/data_template_project_name/.venv/bin/pytest"
+				// mypy seems to be not working properly in VSCode, so it's disabled for now. Kept for now because mypy is not replaced by Ruff.
+				// "mypy-type-checker.path": ["/workspaces/data_template_project_name/.venv/bin/mypy"],
+				// "mypy-type-checker.args": ["--config-file=pyproject.toml"]
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"bierner.markdown-mermaid",
+				"charliermarsh.ruff",
+				"cweijan.vscode-postgresql-client2",
+				"EditorConfig.EditorConfig",
+				"github.vscode-github-actions",
+				// "GitHub.copilot", //uncomment this only if you have access to copilot.
+				"ms-azuretools.vscode-docker",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-keymap",
+				"ms-toolsai.jupyter-renderers",
+				//"ms-python.mypy-type-checker", // uncomment this when issues resolved. Kept because mypy is not replaced by ruff.
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-toolsai.vscode-jupyter-cell-tags",
+				"ms-toolsai.vscode-jupyter-slideshow",
+				"ms-vsliveshare.vsliveshare",
+				"ryanluker.vscode-coverage-gutters"
+				// "tamasfe.even-better-toml" //bungcip.better-toml is outdated, ven-better-toml is currently in preview.
+			]
+		}
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// TODO: what is Port 8501 for?
+	"forwardPorts": [
+		8501,
+		5432
+	],
+	"portsAttributes": {
+		"5432": {
+			"label": "PostgreSQL"
+		}
+	},
+	// codespaces does not sometimes git with current repository properly, safe.directory approach is added here
+	"updateContentCommand": "git config --global --add safe.directory /workspaces/data_template_project_name; make codespaces_only",
+	// NOTE As of July 2025 due to codespace changes itself, this extra .venv activation is needed to really activate .venv properly.
+	"postCreateCommand": "echo 'source /workspaces/data_template_project_name/.venv/bin/activate' >> ~/.bashrc",
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	// NOTE: root is used on purpose - only for Codespaces Development Environment. [Hint: Makefile and sudo-users when using it]
+	"remoteUser": "root",
+	"features": {
+		"git": "latest",
+		"github-cli": "latest"
+	}
+}

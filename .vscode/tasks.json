@@ -1,0 +1,25 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    // Hint: "make start_codespace_services" does NOT work in devcontainer.json, it must be done in VS Code Terminal directly after codespace has started
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "start_codespace_services",
+            "type": "shell",
+            "command": "make",
+            "args": ["start_codespace_services"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}

@@ -1,0 +1,127 @@
+name: Finish tasks to fully transform template into repository
+# NOTE: if you change this name, please remember to update other yml files that depend on this file!
+
+on:
+  push:
+    branches:
+      - main
+
+permissions: write-all
+
+jobs:
+  check-repo-is-just-created-from-template:
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.check-template-is-now-repo.outputs.status }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if .github/template.yml exists
+        id: check-template-file
+        run: |
+          if [ -f .github/template.yml ]; then
+            echo ".github/template.yml exists, it is a template"
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo ".github/template.yml does not exist, it is not a template"
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if repository name is no longer a template name
+        id: check-template-name
+        run: |
+          if [[ ! "${{ github.repository }}" == *"data_template_project_name"* ]]; then
+            echo "repository name is no longer a template name."
+            echo "no-longer-match=true" >> $GITHUB_OUTPUT
+          else
+            echo "repository name is still a template name."
+            echo "no-longer-match=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Result if repository is just created from template
+        id: check-template-is-now-repo
+        run: |
+          if [[ "${{ steps.check-template-file.outputs.exists }}" == "true" && "${{ steps.check-template-name.outputs.no-longer-match }}" == "true" ]]; then
+            echo "Template is now repository."
+            echo "status=true" >> $GITHUB_OUTPUT
+          else
+            echo "There has been no status change from template to repository."
+            echo "status=false" >> $GITHUB_OUTPUT
+          fi
+
+  rename-template-into-repository:
+    # NOTE: if you change this job name, please remember to update other yml files that depend on this job!
+    # This rename-template-into-repository is run only once: at the time of creating a repository from template. After that, this job is then always skipped.
+    runs-on: ubuntu-latest
+    needs: check-repo-is-just-created-from-template
+    if: ${{ needs.check-repo-is-just-created-from-template.outputs.status == 'true' }}
+    # The status is expected to be TRUE if a new repository is JUST created from that template
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # by default, it uses a depth of 1
+          # this fetches all history so that we can read each commit
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
+      - name: Get new repository name
+        run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}' | tr '-' '_' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get new repository name in URL address
+        run: echo "REPOSITORY_URLNAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get repository owner name
+        run: echo "REPOSITORY_OWNER=$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get repository description
+        run: echo "REPOSITORY_DESCRIPTION='${{ github.event.repository.description }}'" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Make rename_template_project.sh executable
+        run: chmod +x .github/scripts/rename_template_project.sh
+
+      - name: Rename the project
+        env:
+          REPOSITORY_OWNER: ${{ env.REPOSITORY_OWNER }}
+          REPOSITORY_NAME: ${{ env.REPOSITORY_NAME }}
+          REPOSITORY_URLNAME: ${{ env.REPOSITORY_URLNAME }}
+          REPOSITORY_DESCRIPTION: ${{ env.REPOSITORY_DESCRIPTION }}
+        run: |
+          echo "Renaming the project with -a(author) ${{ env.REPOSITORY_OWNER }} -n(name) ${{ env.REPOSITORY_NAME }} -u(urlname) ${{ env.REPOSITORY_URLNAME }} -d(description) ${{ env.REPOSITORY_DESCRIPTION }}"
+          .github/scripts/rename_template_project.sh -a ${{ env.REPOSITORY_OWNER }} -n ${{ env.REPOSITORY_NAME }} -u ${{ env.REPOSITORY_URLNAME }} -d ${{ env.REPOSITORY_DESCRIPTION }}
+
+      - name: Commit and push changes to main branch
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Repository successfully renamed."
+          # commit_options: '--amend --no-edit'
+          push_options: --force
+
+      - name: Update version number to 0.0.1.dev0 for new repository just created from template, to main branch.
+        run: |
+          sed -i -e '/^name = /{N;s/^name = \([^ \n]*\)\nversion = .*/name = \1\nversion = "0.0.1.dev0"/;}' pyproject.toml
+
+      - name: Set user identity (for an updated branch to push to)
+        run: |
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+
+      - name: Commit and push changes to main branch
+        run: |
+          # Check if there are changes
+          if git diff --quiet; then
+            echo "No changes to commit. Working tree is clean."
+          else
+            # If there are changes, commit and push
+            git add pyproject.toml
+            git commit -m "✅ Updated version number to 0.0.1.dev0 for new repository. Now ready to code!"
+            git push origin HEAD:main
+          fi
+
+      - name: Display default branch
+        run: |
+          echo "Current default branch is: ${{ github.event.repository.default_branch }}"
