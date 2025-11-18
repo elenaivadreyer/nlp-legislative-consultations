@@ -57,7 +57,7 @@ create_venv:
 run_pytest_with_cov:
 	echo "Running unit tests with coverage now..."
 	source .venv/bin/activate && \
-	python3 -m pytest --cov=src/data_template_project_name --cov-report=term-missing --cov-report=xml --cov-append --cov-fail-under=0
+	python3 -m pytest --cov=src/nlp_legislative_consultations --cov-report=term-missing --cov-report=xml --cov-append --cov-fail-under=0
 	echo "Running unit tests with coverage is complete."
 
 check_coverage_badge_for_any_changes:

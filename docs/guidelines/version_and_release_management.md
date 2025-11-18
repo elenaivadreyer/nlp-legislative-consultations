@@ -94,14 +94,14 @@ gitGraph TB:
 | Which ones are for `DEV`-Environment          | Branch `main` or any feature/hotfix branch derived from `main` branch <br>This environment is **local only**, like GitHub Codespaces or user's VS Code. |
 | Which ones are for `STAGING`-Environment          | Branch `main`<br>The `main` branch represents the latest code that developers work with before tagging a release. <br>This branch is always as deployable and as production-ready as possible. Preferably **same network** as `PROD`, behind firewall. |
 | Which ones are for `PROD`-Environment?        | Tag `latest` or newest SemVer `x.y.z`-Tag. <br>Tag `latest` is always linked to newest SemVer `x.y.z`-Tag. <br> A release is identified by a tagged version. These tags are executed by release processes.   |
-| Access to latest Branch in <br>`DEV`- and `STAGING`-Environments* | `git+https://${GH_PAT_FOR_PIP_INSTALLATIONS}@github.com/DataLab-BMWK/data_template_project_name.git@main`   |
-| Access to latest Branch in `PROD`-Environment*| `git+https://${GH_PAT_FOR_PIP_INSTALLATIONS}@github.com/DataLab-BMWK/data_template_project_name.git@latest` |
+| Access to latest Branch in <br>`DEV`- and `STAGING`-Environments* | `git+https://${GH_PAT_FOR_PIP_INSTALLATIONS}@github.com/DataLab-BMWK/nlp_legislative_consultations.git@main`   |
+| Access to latest Branch in `PROD`-Environment*| `git+https://${GH_PAT_FOR_PIP_INSTALLATIONS}@github.com/DataLab-BMWK/nlp_legislative_consultations.git@latest` |
 | Release schedule                              | Release-**trigger** is done **manually**. <br>Script(s) will be used to execute the entire release process.|
 
 <br>
 
 ```info
-💡 *TODO: this is yet to be tested, assume a repository data_template_project_name already exists in virtual environment:
+💡 *TODO: this is yet to be tested, assume a repository nlp_legislative_consultations already exists in virtual environment:
     * will reinstalling without `--force-reinstall` already suffice with newer `main` branch?
     * will reinstalling without `--force-reinstall` already suffice with even newer, replaced `latest` tag?
     * How to know if it has been reinstalled? Look at `pip list` for versions. This text block will be updated as more information is obtained.

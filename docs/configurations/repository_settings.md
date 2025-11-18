@@ -6,26 +6,26 @@ For reference, when a repository is created from a template, all of the reposito
 Valid especially for **template repository**: Any changes to scripts and/or documentation must be updated accordingly to stay in sync with each other.
 
 <br><br>
-For an overview, on a repository **web page** of `data_template_project_name`, go to:
+For an overview, on a repository **web page** of `nlp_legislative_consultations`, go to:
 ```
 Settings
 ```
 
-For an overview, in **Github Actions** - workflows, scripts, rulesets - of `data_template_project_name`, go to:
+For an overview, in **Github Actions** - workflows, scripts, rulesets - of `nlp_legislative_consultations`, go to:
 ```
-data_template_project_name/.github/
+nlp_legislative_consultations/.github/
 ```
 
 ## General
 
-On a repository **web page** of `data_template_project_name`, go to:
+On a repository **web page** of `nlp_legislative_consultations`, go to:
 ```
 Settings --> General
 ```
 
 **Github Actions Workflow** regarding `General` Settings of a repository, it is found under:
 ```
-data_template_project_name/.github/workflows/new_repo_configure_settings.yml
+nlp_legislative_consultations/.github/workflows/new_repo_configure_settings.yml
 ```
 
 <br>
@@ -37,17 +37,17 @@ data_template_project_name/.github/workflows/new_repo_configure_settings.yml
 | Pull Requests             | ✅ `Allow merge commits`<br> ❌ `Allow squash merging`<br> ✅ `Allow rebase merging`<br> ✅ `Always suggest updating pull request branches`<br> ❌ `Allow auto-merge`<br> ✅ `Automatically delete head branches` |
 
 ## Rules: Rulesets
-On a repository **web page** of `data_template_project_name`, go to:
+On a repository **web page** of `nlp_legislative_consultations`, go to:
 ```
 Settings --> Rules --> Rulesets
 ```
 Setup of all rulesets in **JSON** format can be found under:
 ```
-data_template_project_name/.github/rulesets/
+nlp_legislative_consultations/.github/rulesets/
 ```
 **Github Actions Workflow** regarding import and activation of rulesets, it is found under:
 ```
-data_template_project_name/.github/workflows/new_repo_configure_settings.yml
+nlp_legislative_consultations/.github/workflows/new_repo_configure_settings.yml
 ```
 
 For now (March 13th, 2025), one ruleset has been set up. There will be some more rulesets coming soon, especially regarding the `tags`.

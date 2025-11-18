@@ -1,6 +1,6 @@
-# data_template_project_name
+# nlp_legislative_consultations
 
-#### project_description
+#### NLP project analyzing the influence of stakeholder comments on final legal drafts.
 
 ```
 The user/developer writes a brief introduction about the project repository here.
@@ -8,7 +8,7 @@ What modules it consists of, what for, and any hints/tips that would help other
 users/developers to use this package.
 ```
 
-How to use this package or its modules directly, please refer to [notebooks/sample_data_template_project_name.ipynb](./notebooks/sample_data_template_project_name.ipynb)
+How to use this package or its modules directly, please refer to [notebooks/sample_nlp_legislative_consultations.ipynb](./notebooks/sample_nlp_legislative_consultations.ipynb)
 
 If credentials are required in this package, please see `Required Credentials` and `Loading and Using Credentials` below.
 
@@ -18,7 +18,7 @@ This template is meant to assist to create a new repository project within DataL
 Here's some steps that you must do to successfully create a project repository from this template. At the end, if you're good to go and everything needed is there, feel free to delete this section. Please **READ THIS** first, before you do anything.
 
 * First of all, **DO NOT FORK**.
-* It is meant to be used from **[Use this template](https://github.com/DataLab-BMWK/data_template_project_name/generate)** feature. Click on this link. This link no longer hints at this very template once it's now new repository already.
+* It is meant to be used from **[Use this template](https://github.com/DataLab-BMWK/nlp_legislative_consultations/generate)** feature. Click on this link. This link no longer hints at this very template once it's now new repository already.
 * Choose which owner (individual or organization like `DataLab-BMWK`) and enter a name for your new project, all lowercase and underscores like this: `just_another_project`.
 * Enter a description (optional). This description will also be copied into `pyproject.toml` as well as into this `README.md` (above).
 * Click on `Private` Repository, unless you know what you're doing.
@@ -36,12 +36,12 @@ Here's some steps that you must do to successfully create a project repository f
 <br>
 ![coverage](test_coverage.svg)
 <br>
-This test coverage includes tests needed for package `data_template_project_name`.
+This test coverage includes tests needed for package `nlp_legislative_consultations`.
 
 ## Structure
-* `src/data_template_project_name`: this is considered a package as `data_template_project_name`.
-* `tests`: this is considered a test folder to test the contents of a package `data_template_project_name`. Please note, test folder and its subfolders must not have `__init__.py`.
-* `tests/test_data_template_project_name.py`: Example calls of the very package `data_template_project_name`.
+* `src/nlp_legislative_consultations`: this is considered a package as `nlp_legislative_consultations`.
+* `tests`: this is considered a test folder to test the contents of a package `nlp_legislative_consultations`. Please note, test folder and its subfolders must not have `__init__.py`.
+* `tests/test_nlp_legislative_consultations.py`: Example calls of the very package `nlp_legislative_consultations`.
 * If other modules are available, separate test files (one test file per module) are expected to be set up.
 
 ## Required Credentials
@@ -60,17 +60,17 @@ There are two approaches to store and load credentials, depending on the environ
 For deeper examples of how credentials are used in an airflow DAG, please see BMWK Datalab Use Cases [Airflow DAGs](https://github.com/DataLab-BMWK/airflow_dmz/tree/main/airflow/dags) of `airflow_dmz` repository.
 
 ## Accessing Virtual Environment in Codespaces
-For bash terminal users wanting to work in a virtual environment of data_template_project_name, enter these commands:
+For bash terminal users wanting to work in a virtual environment of nlp_legislative_consultations, enter these commands:
 
 ```
-cd /workspaces/data_template_project_name
+cd /workspaces/nlp_legislative_consultations
 source .venv/bin/activate
 ```
 
 ## Accessing this Package on a Local Linux Server
 This assumes you have internet connection and you already have cloned this repository. For both sub-cases below, start with these:
 ```
-cd SOME_PATH/data_template_project_name
+cd SOME_PATH/nlp_legislative_consultations
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install --upgrade pip
@@ -126,7 +126,7 @@ All other branches, always linked to tickets/issues, depending on users and deve
 If still not clear, please feel free to ask the Internet.
 
 ## Linting and Formatting
-This project implements linting and formatting tools via a pre-commit hook. Most linting/formatting functionalities are covered by [Ruff](https://docs.astral.sh/ruff/). `Ruff` and other linting/formatting tools are installed in the virtual environment of `data_template_project_name`.
+This project implements linting and formatting tools via a pre-commit hook. Most linting/formatting functionalities are covered by [Ruff](https://docs.astral.sh/ruff/). `Ruff` and other linting/formatting tools are installed in the virtual environment of `nlp_legislative_consultations`.
 
 ### Executing Linting Sources:
 Executing as pre-commit hook:

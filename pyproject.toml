@@ -3,9 +3,9 @@ requires = ["setuptools >= 69.1.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "data_template_project_name"
+name = "nlp_legislative_consultations"
 version = "0.0.1.dev6"
-description = "project_description"
+description = "NLP project analyzing the influence of stakeholder comments on final legal drafts."
 readme = "README.md"
 authors = [
     {name = "Triin Tamra", email = "triin.tamra@bmwk.bund.de"},
@@ -63,9 +63,9 @@ test = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/author_name/data_template_project_name/tree/main#readme"
-Source = "https://github.com/author_name/data_template_project_name"
-Tracker = "https://github.com/author_name/data_template_project_name/issues"
+Documentation = "https://github.com/elenaivadreyer/nlp_legislative_consultations/tree/main#readme"
+Source = "https://github.com/elenaivadreyer/nlp_legislative_consultations"
+Tracker = "https://github.com/elenaivadreyer/nlp_legislative_consultations/issues"
 
 #Global ruff configuration
 [tool.ruff]

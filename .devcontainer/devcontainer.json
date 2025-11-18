@@ -17,7 +17,7 @@
 		"vscode": {
 			// Set *default* container specific settings.json values on container create.
 			"settings": {
-				"python.defaultInterpreterPath": "/workspaces/data_template_project_name/.venv/bin/python",
+				"python.defaultInterpreterPath": "/workspaces/nlp_legislative_consultations/.venv/bin/python",
 				"python.terminal.activateEnvironment": true,
 				// "python.terminal.activateEnvInCurrentTerminal": true,
 				"python.testing.pytestArgs": [
@@ -45,12 +45,12 @@
 						]
 					}
 				],
-				// NOTE: some paths referring to the ones of data_template_project_name/.venv is recommended (instead of built-in standard paths): [TODO: this is to be checked]
-				// "data_template_project_name" package for example can be noticed that it exists.
+				// NOTE: some paths referring to the ones of nlp_legislative_consultations/.venv is recommended (instead of built-in standard paths): [TODO: this is to be checked]
+				// "nlp_legislative_consultations" package for example can be noticed that it exists.
 				// pyproject.toml can be correctly considered (flake8 line width for example)
-				"python.testing.pytestPath": "/workspaces/data_template_project_name/.venv/bin/pytest"
+				"python.testing.pytestPath": "/workspaces/nlp_legislative_consultations/.venv/bin/pytest"
 				// mypy seems to be not working properly in VSCode, so it's disabled for now. Kept for now because mypy is not replaced by Ruff.
-				// "mypy-type-checker.path": ["/workspaces/data_template_project_name/.venv/bin/mypy"],
+				// "mypy-type-checker.path": ["/workspaces/nlp_legislative_consultations/.venv/bin/mypy"],
 				// "mypy-type-checker.args": ["--config-file=pyproject.toml"]
 			},
 			// Add the IDs of extensions you want installed when the container is created.
@@ -88,9 +88,9 @@
 		}
 	},
 	// codespaces does not sometimes git with current repository properly, safe.directory approach is added here
-	"updateContentCommand": "git config --global --add safe.directory /workspaces/data_template_project_name; make codespaces_only",
+	"updateContentCommand": "git config --global --add safe.directory /workspaces/nlp_legislative_consultations; make codespaces_only",
 	// NOTE As of July 2025 due to codespace changes itself, this extra .venv activation is needed to really activate .venv properly.
-	"postCreateCommand": "echo 'source /workspaces/data_template_project_name/.venv/bin/activate' >> ~/.bashrc",
+	"postCreateCommand": "echo 'source /workspaces/nlp_legislative_consultations/.venv/bin/activate' >> ~/.bashrc",
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	// NOTE: root is used on purpose - only for Codespaces Development Environment. [Hint: Makefile and sudo-users when using it]
 	"remoteUser": "root",
