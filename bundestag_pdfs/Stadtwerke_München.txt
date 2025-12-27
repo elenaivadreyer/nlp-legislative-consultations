@@ -1,0 +1,462 @@
+Die Stadtwerke München begrüßen, dass die neue Bundesregierung das
+Geothermiebeschleunigungsgesetz nicht nur wiederaufgegriffen hat, sondern den Gesetzentwurf
+der letzten Legislaturperiode verbessern möchte. Um die dringend benötigten Beschleunigungs-
+und Vereinfachungseffekte bei Geothermievorhaben erzielen zu können, bedarf es aus unserer
+Sicht noch Ergänzungen und Änderungen am Referentenentwurf.
+
+
+1.
+Zu Artikel 1 Gesetz zur Beschleunigung der Genehmigung von Geothermieanlagen,
+Wärmepumpen sowie Wärmespeichern
+
+a.
+Zweck und Ziel des Gesetzes, Artikel 1, § 1
+
+Sehr zu begrüßen ist die Aufnahme von Kälte in den Anwendungsbereich des GeoBG.
+
+b.
+Anwendungsbereich des GeoBG, § 2, Nummer 3 und 4
+
+Sehr zu begrüßen ist, dass im Anwendungsbereich nun explizit Nebenanlagen erwähnt werden.
+
+Nebenanlagen sind im Gesetz aber nicht legal definiert. Nebenanlagen zu Geothermieanlagen
+sind z.B. Wärmeeinbindestationen, Druckerhöhungsanlagen oder Wärmeübergabestationen. Diese
+befinden sich nicht zwingend in unmittelbarer räumlicher Nähe zu den Geothermieanlagen; daher
+dürfte es in der Praxis zu Rechtsunsicherheit führen, welche Nebenanlagen unter den Begriff Ne-
+benanlagen fallen, wenn dies nicht weiter konkretisiert wird. Wärmeeinbindestationen ermöglichen
+überhaupt erst, dass Geothermiewärme ins Fernwärmesystem übertragen und genutzt werden
+kann. Ohne diese Stationen ist der Bau der Geothermieanlagen sinnfrei. Die Notwendigkeit z.B. für
+Wärmeeinbindestationen, weit weg von den eigentlichen Geothermiebohrungen, ergibt sich auf-
+grund der langen Transportleitungen. Konkret trennen die Stationen mit Wärmetauschern die Lei-
+tung hydraulisch vom Rest des Netzes, integrieren aber durch Wärmeübertrager energetisch die
+Wärme ins Netz. Diese hydraulische Trennung ist aufgrund der langen Transportwege notwendig,
+die hohe Druckverluste bedingen und eine Entkopplung der Druckverhältnisse in Transportleitung
+und Fernwärmenetz technisch für eine hohe Wärmeeinbindung notwendig machen.
+
+Druckerhöhungsanlagen oder Wärmeübergabestationen erhöhen den Anteil an Geothermie, der
+ins Fernwärmesystem unterbracht werden kann, indem sie hydraulische Engpässe beheben oder
+zumindest anheben. Ohne diese Anlagen gibt es zwar erneuerbare Wärme im Netz, aber weniger
+als mit den vorgenannten Anlagen bei sonst gleicher Anzahl an erneuerbaren Anlagen.
+
+Die Anzahl und der Ort der Anlagen ist dabei vielfältig: pro Geothermieanlage können dabei ein bis
+drei Wärmeübergabestationen ins Netz, ein bis drei Druckerhöhungsstationen auf dem Weg ins
+Fernwärmenetz und innerhalb des Fernwärmenetzes sowie weitere Übergabestationen zwischen
+den verschiedenen Fernwärmeteilnetzen zusammenkommen. Die Aufnahme in das Gesetz ist
+dementsprechend von hoher Relevanz für die Fernwärmewende.
+
+Wir schlagen daher folgende Ergänzung in § 3 Begriffsbestimmungen vor:
+
+§ 3 Begriffsbestimmungen:
+1. (…)
+2. 6. „Nebenanlagen“ sind weitere Anlagen, die die Einbindung und Verteilung von
+erneuerbarer Wärme ins Fernwärmesystem ermöglichen.
+
+Nach § 2 beschränkt sich der Anwendungsbereich auf die "ZULASSUNG" von bestimmten Leitun-
+gen und Anlagen. Dies bringt eine unnötige Einschränkung mit sich, z.B. bei Vorhaben, die keiner
+Zulassung bedürfen.
+
+WIR SCHLAGEN DAHER FOLGENDE ANPASSUNG VOR:
+
+"Dieses Gesetz ist anzuwenden auf die Zulassung der nachstehenden Anlagen und Leitungen,
+einschließlich der jeweils dazugehörigen Nebenanlagen (...)"
+
+
+c.
+§ 3 Begriffsbestimmung GeoBG
+aa.
+Definition Wärmenetz
+
+Sehr zu begrüßen ist die Aufnahme von Wärmeleitungen in den Anwendungsbereich des GeoBG.
+
+d.
+§ 6 Maßgabe für §39 und § 44 des Bundesnaturschutzgesetzes
+
+In § 6 Abs. 2 ist in rechtlicher Hinsicht unklar, was unter „gleichzeitig“ zu verstehen ist.
+
+WIR SCHLAGEN DAHER FOLGENDE ANPASSUNG VOR:
+
+§ 6 Maßgabe für § 39 Absatz 1 Nummer 1 und § 44 Absatz 1 Nummer 2 des Bundesnatur-
+schutzgesetzes
+(1)…
+(2) § 44 Absatz 1 Nummer 2 des Bundesnaturschutzgesetzes ist bei der Erlaubnis zur Aufsu-
+chung von Erdwärme mit der Maßgabe anzuwenden, dass eine seismische Exploration durch
+Vibrotrucks auf befestigten Straßen und Wegen in der Regel nicht zu einer erheblichen Störung
+wild lebender Tiere der streng geschützten Arten und der europäischen Vogelarten führt, wenn
+gleichzeitig eine ökologische Baubegleitung erfolgt.
+
+Die Schnitt- und Fällverbote des § 39 BNatSchG gelten uneingeschränkt jedenfalls für Straßen-
+bäume, Alleen und Bäume in der freien Landschaft (außerhalb des Waldes). In erster Konsequenz
+bedeutet dies, dass im Schutzzeitraum 1. März bis zum 30. September nicht gebaut werden kann,
+wenn dies umfängliche Baumfällungs-Maßnahmen voraussetzt. Zur Beschleunigung der Wärme-
+wende (Leitungs- und Anlagenbau) schlagen wir folgende Änderung im BNatSchG vor:
+
+Änderung des Bundesnaturschutzgesetzes (BNatSchG)
+
+§ 14 Eingriffe in Natur und Landschaft
+[…]
+(2) Die land-, forst- und fischereiwirtschaftliche Bodennutzung sowie seismische Messungen
+auf solchen Flächen und entlang von öffentlichen, land- und forstwirtschaftlichen Wegen
+und Straßen sind ist nicht als Eingriff anzusehen, soweit dabei die Ziele des Naturschutzes
+und der Landschaftspflege berücksichtigt werden. Entsprechendes gilt für Maßnahmen, die
+der Vorbereitung zulassungsbedürftiger Vorhaben dienen, sofern diese Vorhaben im öf-
+fentlichen Interesse stehen und soweit die Maßnahmen nur zu geringfügigen Verände-
+rungen im Sinne von Absatz 1 führen.
+
+[…]
+
+§ 15 Verursacherpflichten, Unzulässigkeit von Eingriffen; Ermächtigung zum Erlass von
+Rechtsverordnungen
+
+[…]
+(6) Wird ein Eingriff nach Absatz 5 zugelassen oder durchgeführt, obwohl die Beeinträchtigun-
+gen nicht zu vermeiden oder nicht in angemessener Frist auszugleichen oder zu ersetzen sind,
+hat der Verursacher Ersatz in Geld zu leisten. […]
+(6a neu) Abweichend von Absatz 5 und Absatz 6 Satz 1 kann der Vorhabenträger für Vor-
+haben zur Erzeugung von Energie aus erneuerbaren Quellen auf Antrag anstelle von
+Ausgleichs- oder Ersatzmaßnahmen Ersatz in Geld leisten.
+
+§ 39 Allgemeiner Schutz wild lebender Tiere und Pflanzen; Ermächtigung zum Erlass von
+Rechtsverordnungen
+Die Verbote des Satzes 1 Nummer 1 bis 3 gelten nicht für
+1. behördlich angeordnete Maßnahmen,
+2. Maßnahmen, die im öffentlichen Interesse nicht auf andere Weise oder zu anderer Zeit
+durchgeführt werden können, wenn sie
+a) behördlich durchgeführt werden,
+b) behördlich zugelassen sind oder
+c) der Gewährleistung der Verkehrssicherheit dienen,
+3. Maßnahmen nach § 14 Abs. 2 BNatSchG oder nach § 15 zulässige Eingriffe in Natur und
+Landschaft,
+4. zulässige Bauvorhaben, wenn nur geringfügiger Gehölzbewuchs zur Verwirklichung der Bau-
+maßnahmen beseitigt werden muss.
+
+
+e.
+§ 8 Planfeststellungsverfahren
+
+Grundsätzlich sind die Regelungen zu § 8 Planfeststellungsverfahren geeignet, eine Beschleuni-
+gung zu erzielen. Aus unserer Sicht bedarf es jedoch noch zusätzlicher Regelungen. Die Ergän-
+zungsvorschläge zielen auf einen Gleichlauf von Planfeststellung von Energieleitungen und Wär-
+meleitungen ab. Ohne die unten stehenden Ergänzungen besteht das hohe Risiko, dass die Reali-
+sierung solcher Vorhaben stark verzögert wird.
+
+ WIR SCHLAGEN DAHER FOLGENDE ANPASSUNG VOR:
+
+§ 8 Planfeststellung, Plangenehmigung
+(1)…
+(2) Für das Planfeststellungsverfahren sowie für das Plangenehmigungsverfahren
+nach Absatz 1 gelten die Vorschriften des Teil V Abschnitt 2 des Verwaltungsverfahrensgeset-
+zes.
+Dabei sind entsprechend anzuwenden
+1. die Maßgaben der § 43a, des Energiewirtschaftsgesetzes für das Anhörungsverfahren,
+2. die Maßgaben des § 43b Absatz 1 Nummer 3, des Energiewirtschaftsgesetzes für die
+Zustellung und Bekanntmachung des Planfeststellungsbeschlusses,
+3. die Maßgaben des § 43c des Energiewirtschaftsgesetzes für die Rechtswirkungen der
+Planfeststellung und Plangenehmigung,
+4. § 43g des Energiewirtschaftsgesetzes für die Beauftragung des Projektmanagers
+5. § 43k des Energiewirtschaftsgesetzes für die Zurverfügungstellung von Geodaten und
+6. § 44 des Energiewirtschaftsgesetzes für Vorarbeiten anzuwenden.
+7. § 43e EnWG für Rechtsbehelfe gegen einen Planfeststellungsbeschluss oder eine
+Plangenehmigung
+8. § 44a EnWG für die Veränderungssperre
+9. § 44b EnWG für die vorzeitige Besitzeinweisung
+
+
+2.
+Artikel 4 Änderung des Bundesberggesetz (BBerg)
+a.
+§ 4 Begriffsbestimmungen BBergG
+Die Begriffsbestimmung im BBergG ist entsprechend anzupassen:
+§ 4 Begriffsbestimmungen
+(2) Gewinnen (Gewinnung) ist das Lösen oder Freisetzen von Bodenschätzen einschließlich der
+damit zusammenhängenden vorbereitenden, begleitenden und nachfolgenden Tätigkeiten; aus-
+genommen ist das Lösen oder Freisetzen von Bodenschätzen
+1. in einem Grundstück aus Anlass oder im Zusammenhang mit dessen baulicher oder sonsti-
+ger städtebaulicher Nutzung und
+2. in oder an einem Gewässer als Voraussetzung für dessen Ausbau oder Unterhaltung.
+Zur Gewinnung von Erdwärme gehört auch deren Umwandlung in nutzbare Wärme bis
+zur Einspeisung in ein Wärmenetz und deren Umwandlung in elektrischen Strom, wenn
+sie in unmittelbarem betrieblichem Zusammenhang mit der Gewinnung erfolgen.
+
+(3) Aufbereiten (Aufbereitung) ist das
+1. Trennen oder Anreichern von Bodenschätzen nach stofflichen Bestandteilen oder geometri-
+schen Abmessungen auf physikalischer oder physikalisch-chemischer Grundlage einschließ-
+lich der damit zusammenhängenden vorbereitenden, begleitenden und nachfolgenden Tätig-
+keiten,
+2. Brikettieren, Verschwelen, Verkoken, Vergasen, Verflüssigen und Verlösen von Bodenschät-
+zen,
+wenn der Unternehmer Bodenschätze der aufzubereitenden Art in unmittelbarem betrieblichem
+Zusammenhang selbst gewinnt oder wenn die Bodenschätze in unmittelbarem räumlichem Zu-
+sammenhang mit dem Ort ihrer Gewinnung aufbereitet werden. Eine Aufbereitung liegt nicht
+vor, wenn eine Tätigkeit im Sinne des Satzes 1 mit einer sonstigen Bearbeitung oder Verarbei-
+tung von Bodenschätzen (Weiterverarbeitung) oder mit der Herstellung anderer Erzeugnisse
+(Nebengewinnung) durchgeführt wird und das Schwergewicht der Tätigkeit nicht bei der Aufbe-
+reitung liegt; die Nutzung von Erdwärme außerhalb des Gewinnungsbetriebs ist einer Weiter-
+verarbeitung gleichzustellen
+
+
+b.
+§ 31 Anwendungsbereich BBergG
+Bei § 31 ist der Anwendungsbereich ebenfalls entsprechend zu erweitern:
+§ 31 Förderabgabe
+
+(1) Der Inhaber einer Bewilligung hat jährlich für die innerhalb des jeweiligen Jahres aus
+dem Bewilligungsfeld gewonnenen oder mitgewonnenen bergfreien Bodenschätze eine
+Förderabgabe zu entrichten. Gleiches gilt für den Bergwerkseigentümer. Eine Förderab-
+gabe ist nicht zu entrichten, soweit die Bodenschätze ausschließlich aus gewinnungs-
+technischen Gründen gewonnen und nicht wirtschaftlich verwertet werden. Satz 3 gilt
+nicht für die Errichtung eines Untergrundspeichers. Eine Förderabgabe ist ferner nicht
+zu entrichten für die Gewinnung von Erdwärme.
+
+
+c.
+§ 57e Abs. 6 Verfahrensbeschleunigung und Konzentrationswirkung BBergG
+
+Aus Sicht der SWM ist es zum Gelingen der Wärmewende unabdingbar, die Zulassungsverfahren
+zu vereinfachen und zu beschleunigen.
+
+Daher schlagen wir hierzu vor, dass der Gesetzgeber hierfür besser auf bekannte, in der Praxis
+bereits bewährte Instrumente bzw. Regelungen zurückgreift, wie im Folgenden dargestellt:
+
+-
+Die Zulassung von Geothermie-Vorhaben soll in einem Zulassungsverfahren mit umfas-
+sender Konzentrationswirkung (unter Einschluss aller erforderlichen Einzelgenehmigun-
+gen, insbesondere von Baugenehmigungen für obertägige Anlagen) erfolgen. Dies erspart
+eine aufwändige Koordinierung von und Abstimmung zwischen Zulassungsverfahren. Da-
+mit geht eine deutliche Beschleunigung von Zulassungsverfahren einher.
+
+-
+Aus Sicht der SWM ist es sachgerecht und notwendig, eine verbindliche Verfahrensfrist
+für die Durchführung von Zulassungsverfahren gesetzlich zu verankern. Vorbild hierfür
+sollte § 10 Abs. 6a S. 1 BImSchG sein, der für immissionsschutzrechtlich genehmigungs-
+bedürftige Anlagen eine Verfahrensfrist von sieben Monaten vorsieht, bei „kleineren“ Vor-
+haben eine Verfahrensfrist von lediglich drei Monaten.
+
+-
+Es sind – ggf. auf untergesetzlicher Ebene – Möglichkeiten zur Standardisierung der Prü-
+fung von Zulassungsanforderungen einzuführen. Insbesondere beim Einsatz etablierter
+Technologien und bekannter Stoffe kann so auf eine aufwändige Einzelfallprüfung verzich-
+tet werden. Nach Ansicht der SWM sind die Errichtung und der Betrieb von Geothermie-
+Anlagen sowie das Repowering solcher Anlagen mittlerweile hinsichtlich der eingesetzten
+Technologien und Stoffe bekannt. Zulassungsrelevante Wissensdefizite insbesondere hin-
+sichtlich der Auswirkungen von Technologien und Stoffen bestehen in der Regel nicht. So
+hat die SWM für ihre Projekte in Abstimmung mit dem Bayerischen Landesamt für Umwelt
+eine “Positivliste” von Stoffen etabliert, die bei der Herstellung der Bohrungen in Interaktion
+mit dem Grundwasser stehen und deren Verwendung aus gewässerökologischer und was-
+serrechtlicher Sicht als unproblematisch gilt. Auf diese Weise kann die Planung und Zulas-
+sung von Geothermie-Vorhaben deutlich beschleunigt werden. Denn bei Einsatz/Verwen-
+dung standardisierter, (unter-)gesetzlich festgeschriebener Technologien und Stoffe kön-
+nen Vorhabenträger und die zuständigen Behörden auf eine detaillierte Planung bzw. Prü-
+fung verzichten.
+
+ WIR SCHLAGEN DAHER FOLGENDE ANPASSUNG VOR:
+
+ Die Zulassung von Geothermie-Vorhaben soll in einem Zulassungsverfahren mit um-
+fassender Konzentrationswirkung (unter Einschluss aller erforderlichen Einzelgenehmi-
+gungen, insbesondere von Baugenehmigungen für obertägige Anlagen) erfolgen.
+ Für die Durchführung von Zulassungsverfahren ist eine verbindliche Verfahrensfrist
+von sieben Monaten gesetzlich zu verankern.
+ Es sind – ggf. auf untergesetzlicher Ebene – Möglichkeiten zur Standardisierung der
+Prüfung von Zulassungsanforderungen einzuführen.
+
+
+d.
+§ 68 Erlass von Bergverordnungen BBergG
+Notwendige Erweiterung zu § 68 Erlass von Bergverordnungen:
+
+§ 68 Erlass von Bergverordnungen
+
+(1) Bergverordnungen auf Grund der §§ 65 bis 67 werden, soweit sich aus Absatz 2 nichts ande-
+res ergibt, von den Landesregierungen erlassen. Diese können die Ermächtigung durch Rechts-
+verordnung auf andere Stellen übertragen.
+(2) Das Bundesministerium für Wirtschaft und Energie erlässt Bergverordnungen,
+1.
+soweit sie auf Grund des § 65 Satz 1 Nr. 3, 6 und 5 in Verbindung mit Nr. 3, des § 65 Satz
+2, des § 66 Satz 1 Nr. 4 Buchstabe a, b, d und e und des § 67 ergehen,
+2.
+soweit sie Tätigkeiten im Sinne des § 2 im Bereich des Festlandsockels betreffen und
+3.
+soweit sie Tiefbohrungen und damit zusammenhängende Tätigkeiten des Bohrloch-
+bergbaus betreffen oder sonst für gleichartige Verhältnisse der Schutz der in den §§ 65
+bis 67 bezeichneten Rechtsgüter und Belange durch Bergverordnungen nach Absatz 1
+nicht gleichwertig sichergestellt wird oder soweit Rechtsakte des Rates oder der Kommis-
+sion der Europäischen Gemeinschaften oder Beschlüsse internationaler Organisationen
+oder zwischenstaatliche Vereinbarungen, die Gegenstände dieses Gesetzes betreffen,
+durchgeführt werden.
+4. zur Regelung des Einsatzes wiederkehrender unbedenklicher Stoffe bei Vorhaben zur
+Gewinnung von Erdwärme
+
+
+
+3.
+Zu Artikel 5 Änderung des Wasserhaushaltsgesetzes
+a.
+§ 12 Voraussetzungen für die Erteilung der Erlaubnis und der Bewilligung, Bewirt-
+schaftungsermessen, WHG
+Für die Erteilung der Erlaubnis und der Bewilligung sind folgende Anpassungen erforderlich:
+§ 12 Voraussetzungen für die Erteilung der Erlaubnis und der Bewilligung, Bewirtschaf-
+tungsermessen
+
+(1) Die Erlaubnis und die Bewilligung sind zu versagen, wenn
+1.
+schädliche, auch durch Nebenbestimmungen nicht vermeidbare oder nicht ausgleich-
+bare Gewässerveränderungen zu erwarten sind oder
+2.
+andere Anforderungen nach öffentlich-rechtlichen Vorschriften nicht erfüllt werden.
+(2) Im Übrigen steht die Erteilung der Erlaubnis und der Bewilligung im pflichtgemäßen Ermes-
+sen (Bewirtschaftungsermessen) der zuständigen Behörde.
+
+
+(3 neu) Für Vorhaben zur Erzeugung von Energie aus erneuerbaren Quellen im Sinne des
+§ 11a beschränkt sich das Bewirtschaftungsermessen auf den Ausgleich bestehender
+oder beantragter konkurrierender Nutzungen zur Versorgung mit Trinkwasser und Erneu-
+erbaren Energien; im Übrigen ist die Erlaubnis oder Bewilligung zu erteilen, wenn die Vo-
+raussetzungen nach Absatz 1 erfüllt sind.
+
+
+4.
+Zusätzlicher Änderungsbedarf im Rahmen des GeoBG
+a.
+Artikel 7 neu: Änderung des Baugesetzbuches
+
+Für den Ausbau der Geothermie ist eine ausreichende Flächenverfügbarkeit zu gewährleisten.
+Dies erfordert eine gesetzliche Verpflichtung dergestalt, dass die öffentliche Hand verpflichtet wird,
+Grundstücke zu angemessenen Bedingungen für Geothermie-Vorhaben zur Verfügung zu stellen,
+die Umwidmung von Flächen im Rahmen der Bauleitplanung ermöglicht und seismische
+Messungen und Probebohrungen duldet. In Umsetzung der RED III sind die Länder nun zu
+verpflichten, im Wege der Raumordnung geeignete Flächen für Geothermie-Vorhaben
+auszuweisen, als sog. „go-to-Bereiche“ für die Geothermie. In diesen Bereichen muss die Nutzung
+von Geothermie durch die zuständigen Kommunal- und Landes-Behörden gegenüber anderen
+baulichen Nutzungen priorisiert geprüft werden und es gelten erleichterte
+Zulassungsanforderungen an Geothermie-Vorhaben zur Energieerzeugung. Auf der Ebene der
+Bauleitplanung ist durch Änderung des § 35 Abs. 1 BauGB ein spezieller Privilegierungstatbestand
+für Geothermie (Tiefenbohrungen, Obertageanlagen wie z.B. Wärmestationen und Netzanbindung)
+zu schaffen, um einen Gleichlauf mit anderen privilegierten erneuerbaren Energieträgern (u.a.
+Wind und Biomasse) zu erreichen und bestehende Rechtsunsicherheiten zu beseitigen.
+
+Notwendige Änderung des Baugesetzbuchs (BauGB)
+
+§ 35 Abs. 1 Nr. 5
+(1) Im Außenbereich ist ein Vorhaben nur zulässig, wenn öffentliche Belange nicht entgegenste-
+hen, die ausreichende Erschließung gesichert ist und wenn es
+[…]
+5. der Erforschung, Entwicklung oder Nutzung der Windenergie nach Maßgabe des §249 oder
+der Erforschung, Entwicklung oder Nutzung der Wasserenergie oder der Erdwärme dient,
+
+
+b.
+Artikel 8 neu: Änderung des Geologiedatengesetzes
+
+Änderung des Geologiedatengesetzes (GeolDG)
+
+§ 5 Aufgaben der zuständigen Behörde
+(1) Die zuständige Behörde nimmt die staatliche geologische Landesaufnahme mittels eigener
+geologischer Untersuchungen sowie auf der Grundlage geologischer Untersuchungen Dritter
+vor. Erlangt die zuständige Behörde hierbei Erkenntnisse über dringende Geogefahren, so infor-
+miert sie unverzüglich die für die Durchführung der Gefahrenabwehr zuständige Behörde.
+[…]
+
+(6) Die zuständige Behörde stellt die ihr nach Absatz 1 vorliegenden Daten im Hinblick
+auf die im Untergrund vorhandenen Erdwärme bezüglich ihrer Ausdehnung und Vertei-
+lung bereit, unabhängig von ihrer Wirtschaftlichkeit.
+
+Die Möglichkeit der Zuhilfenahme von Künstlicher Intelligenz (KI) bei der Auswertung be-
+reits vorhandener Daten soll geprüft werden.
+
+Kapitel 2a Förderprogramm zur Verbesserung der Datenlage zur Nutzung der Geothermie
+
+§ 7a Förderziel und geförderte Maßnahmen
+(1) Das Bundesministerium für Wirtschaft und Klimaschutz fördert die Untersuchung des
+Untergrundes auf seine Eignung zur thermischen Nutzung. Maßgebliche thermische Nut-
+zungen sind oberflächennahe, mitteltiefe und tiefe Nutzungen zur Gewinnung von Erd-
+wärme sowie zur Abgabe und zur Speicherung von Wärme im Untergrund.
+(2) Gefördert werden zum Zweck des Absatzes 1
+1. geophysikalische Untersuchungen,
+2. oberflächennahe, mitteltiefe und tiefe Bohrungen einschließlich der damit verbunde-
+nen geologischen Untersuchungen,
+3. sonstige Untersuchungen,
+4. die Aufbereitung der hierbei gewonnenen Daten und
+5. die Analyse und Bewertung der nach Nr. 1 bis 4 gewonnenen Fachdaten, auch in Ver-
+bindung mit bereits vorhandenen Daten.
+
+§ 7b Zuwendungsempfänger, Verwaltungsvorschriften
+(1) Antragsberechtigt sind
+1. die für die geologische Landesaufnahme nach § 5 Absatz 1 zuständigen Behörden
+der Länder,
+2. Unternehmen, die zur Durchführung des Vorhabens technisch und wirtschaftlich
+in der Lage sind,
+3. Kommunen, kommunale Eigenbetriebe, kommunale Unternehmen und kommunale
+Zweckverbände und
+4. planungsverantwortliche und für die Genehmigung von Wärmeplänen zuständige
+Stellen im Sinne des Wärmeplanungsgesetzes.
+Einzelheiten werden durch Verwaltungsvorschriften des Bundesministeriums für
+Wirtschaft und Klimaschutz im Einvernehmen mit dem Bundesministerium der Finan-
+zen geregelt.
+
+
+
+c.
+Artikel 9 neu: Änderung des Gewerbesteuergesetzes
+
+Änderung des Gewerbesteuergesetzes (GewStG)
+
+§ 29 Zerlegungsmaßstab
+(1) Zerlegungsmaßstab ist
+1. vorbehaltlich der Nummer 2 das Verhältnis, in dem die Summe der Arbeitslöhne, die an
+die bei allen Betriebsstätten (§ 28) beschäftigten Arbeitnehmer gezahlt worden sind, zu
+den Arbeitslöhnen steht, die an die bei den Betriebsstätten der einzelnen Gemeinden
+beschäftigten Arbeitnehmer gezahlt worden sind;
+2. bei Betrieben, die ausschließlich Anlagen zur Erzeugung von Strom und anderen Ener-
+gieträgern sowie Wärme aus Windenergie, und solarer Strahlungsenergie oder Erd-
+wärme betreiben,
+a. vorbehaltlich des Buchstabens b zu einem Zehntel das in Nummer 1 bezeichnete
+Verhältnis und zu neun Zehnteln das Verhältnis, in dem die Summe der installier-
+ten Leistung im Sinne von § 3 Nummer 31 des Erneuerbare-Energien-Gesetzes
+in allen Betriebsstätten (§ 28) zur installierten Leistung in den einzelnen Betriebs-
+stätten steht,
+für die Erhebungszeiträume 2021 bis 2023 bei Betrieben, die ausschließlich An-
+lagen zur Erzeugung von Strom und anderen Energieträgern sowie Wärme aus
+solarer Strahlungsenergie betreiben
+aa) für den auf Neuanlagen im Sinne von Satz 3 entfallenden Anteil am Steuer-
+messbetrag zu einem Zehntel das in Nummer 1 bezeichnete Verhältnis und zu
+neun Zehnteln das Verhältnis, in dem die Summe der installierten Leistung im
+Sinne von § 3 Nummer 31 des Erneuerbare-Energien-Gesetzes in allen Be-
+triebsstätten (§ 28) zur installierten Leistung in den einzelnen Betriebsstätten
+steht, und
+bb) für den auf die übrigen Anlagen im Sinne von Satz 4 entfallenden Anteil am
+Steuermessbetrag das in Nummer 1 bezeichnete Verhältnis.
+Der auf Neuanlagen und auf übrige Anlagen jeweils entfallende Anteil am Steuermess-
+betrag wird ermittelt aus dem Verhältnis, in dem
+aa) die Summe der installierten Leistung im Sinne von § 3 Nummer 31 des Erneuerbare-
+Energien-Gesetzes für Neuanlagen und
+bb) die Summe der installierten Leistung im Sinne von § 3 Nummer 31 des Erneuerbare-
+Energien-Gesetzes für die übrigen Anlagen
+zur gesamten installierten Leistung im Sinne von § 3 Nummer 31 des Erneuerbare-Ener-
+gien-Gesetzes des Betriebs steht. Neuanlagen sind Anlagen, die nach dem 30. Juni
+2013 zur Erzeugung von Strom und anderen Energieträgern sowie Wärme aus solarer
+Strahlungsenergie genehmigt wurden. Die übrigen Anlagen sind Anlagen, die nicht unter
+Satz 3 fallen.
+Bei Anlagen zur Erzeugung von Wärme tritt an die Stelle des Anteils der an den je-
+weiligen Betriebsstätten installierten Leistung im Sinne von § 3 Nummer 31 des
+Erneuerbare-Energien-Gesetzes zur gesamten installierten Leistung des Betriebes
+im Sinne von § 3 Nummer 31 des Erneuerbare-Energien-Gesetzes der Anteil der in
+der jeweiligen Gemeinde gewonnenen thermischen Leistung an der gesamten ge-
+wonnenen thermischen Leistung des Betriebes.
+
+
+d.
+Anpassungsbedarf in § 22 ff. EnFG
+
+In §22 ff EnFG wird geregelt, dass für einige Stromanwendungen die Umlagen (KWKG und Offs-
+hore-Netzumlage) auf Null reduziert werden. Es ist nicht nachvollziehbar, weshalb Wärmepumpen
+durch das EnFG von den Umlagen befreit werden, Geothermieanlagen jedoch nicht. Wir schlagen
+daher eine entsprechende Ergänzung vor.
+
+§ 24 EnFG neu: Umlageerhebung bei Geothermieanlagen
+Der Anspruch auf Zahlung der Umlagen verringert sich auf null für die Netzent-
+nahme von Strom, der in einer Geothermieanlage verbraucht wird, wenn die Ge-
+othermieanlage über einen eigenen Zählpunkt mit dem Netz verbunden ist.
+
+
+
+
+
