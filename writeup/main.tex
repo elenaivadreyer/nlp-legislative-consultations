@@ -1,0 +1,349 @@
+% =========================
+% Clean A4 research-paper header
+% =========================
+
+\documentclass[12pt,a4paper]{article}
+
+% --- Encoding / language ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+% --- Page layout (A4) ---
+\usepackage[a4paper,margin=2.5cm]{geometry} % standard-ish margins
+
+% --- Font + typography (nice default) ---
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% --- Paragraphs / spacing ---
+\usepackage{parskip}            % space between paragraphs
+\setlength{\parindent}{0pt}     % no indent (matches parskip style)
+\usepackage{setspace}
+\onehalfspacing                 % change to \singlespacing if you want tighter
+
+% --- Math ---
+\usepackage{amsmath,amssymb}
+
+% --- Figures / tables ---
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\captionsetup{labelfont=bf}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+
+% --- Colors + links ---
+\usepackage{xcolor}
+\definecolor{istblue}{RGB}{3,171,230}
+\definecolor{githubgray}{RGB}{64,64,64}
+
+\usepackage[
+  colorlinks=true,
+  linkcolor=istblue,
+  urlcolor=istblue,
+  citecolor=istblue
+]{hyperref}
+
+% --- Bibliography ---
+%\usepackage[backend=biber,style=authoryear]{biblatex}
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=none
+]{biblatex}
+
+\addbibresource{references.bib}
+
+
+% --- Header / footer ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize NLP Final}
+\fancyhead[R]{\footnotesize Hertie School}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% --- Small helpers (optional; keep only if you use them) ---
+\usepackage[super]{nth}
+\usepackage{siunitx}
+\usepackage{appendix}
+\renewcommand{\appendixpagename}{\LARGE Appendices}
+
+% --- GitHub icon/link (optional) ---
+\usepackage{fontawesome5}
+\makeatletter
+\newcommand{\github}[1]{\href{#1}{\faGithubSquare}}
+\makeatother
+
+% --- Your custom commands ---
+\newcommand{\HRule}{\rule{\linewidth}{0.25mm}}
+
+\begin{document}
+
+% Cover
+\noindent\textbf{Natural Language Processing} \hfill \textbf{Hertie School}\\
+Dr. Sascha Göbel \hfill Fall 2025\\
+
+\vspace{200px}
+
+\begin{center}
+\HRule\\[0.2cm]
+{\large\bfseries
+Tracing Consultation Inputs in Legislative Drafting}\\[0.1cm]
+{\normalsize
+An Embedding-Based Case Study of the Geothermiebeschleunigungsgesetz}
+\\[0.2cm]
+\HRule\\[1.2cm]
+\end{center}
+
+
+\begin{flushleft}
+    \textbf{Author:}
+\end{flushleft}
+
+\begin{center}
+    \begin{minipage}{0.5\textwidth}
+        \begin{flushleft}
+            Elena Dreyer
+        \end{flushleft}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \begin{flushright}
+            \href{mailto:e.dreyer@students.hertie-school.org}{\texttt{e.dreyer@students.hertie-school.org}}
+        \end{flushright}
+    \end{minipage}
+\end{center}
+
+\vspace{240px}
+    
+
+\begin{center}
+    \href{https://github.com/elenaivadreyer/nlp-legislative-consultations}{\textcolor{githubgray}{\faGithub \ \texttt{GitHub Repository}}}
+\end{center}
+
+\vspace{125px}
+
+
+\thispagestyle{empty}
+
+\setcounter{page}{0}
+
+\newpage
+
+
+\section{Introduction}
+
+
+Legislative drafting in Germany proceeds through successive stages, beginning with a ministerial draft (\textit{Referentenentwurf}), moving through consultation and internal revision, and ending with parliamentary deliberation. During consultation, public authorities, associations, and interest groups provide written feedback on draft provisions. These submissions aim to supply technical or practical input that can inform later revisions \cite{bmwi2025ref}.
+
+Since 2025, the Federal Ministry for Economic Affairs and Energy (BMWE) has conducted these consultations online through a platform that allows structured, article-level comments. Draft texts and stakeholder submissions are now published in machine-readable form, which facilitates systematic text analysis \cite{bmwi2025konsultation}. However, manually comparing many versions of a long legal text alongside hundreds of submissions is nearly impossible. Computational methods offer a way to trace textual change and examine where stakeholder input overlaps with legislative wording.
+
+From an NLP perspective, legislative drafting presents special challenges. Most revisions involve local rewording, inserted qualifiers, or small stylistic shifts rather than complete redrafting \cite{smith2014reuse}. Stakeholder comments may influence how a provision is framed without being directly copied. This means that alignment between comments and drafts can occur through explicit reuse of terms or through more general semantic similarity \cite{linder2020policy, burgess2016legislative}. Both forms of alignment are relevant for understanding how consultation interacts with lawmaking, requiring methods that go beyond simple string matching \cite{zhang2024semantic}.
+
+This research note studies the \textit{Geothermiebeschleunigungsgesetz} (Geothermal Acceleration Act) as an applied case \cite{reg2025entwurf1, reg2025entwurf2} and asks: \textbf{To what extent do legislative drafts semantically converge with stakeholder comments throughout the revision process?}
+
+The analysis is descriptive and text-based. It does not attempt to identify causal influence or specific actors. Instead, it examines patterns of textual convergence and divergence across successive drafts and consultation stages.
+
+
+\section{Data}
+
+The dataset combines multiple draft versions of the \textit{Geothermiebeschleunigungsgesetz} with two stages of stakeholder input collected in 2025. All materials were converted to machine-readable form and share a consistent article structure, enabling article-level comparison between drafts and comments.
+
+Versions 1-3 were retrieved from the offical API of the German Bundestag \cite{dip_api}.
+
+\subsection{Legislative Drafts}
+Four versions of the draft law are included: an initial ministerial draft from July 2025 (Draft v0), an internal government revision from August 2025 (Draft v1) \cite{reg2025entwurf1}, the version introduced to parliament in October 2025 (Draft v2) \cite{reg2025entwurf2}, and a version accompanied by the committee report in December 2025 (Draft v3) \cite{bt2025beschluss}.
+
+Together, these drafts cover the full progression from the first internal proposal to parliamentary deliberation. Although minor reordering and renumbering occur, article structures remain largely stable, making direct alignment possible.
+
+\subsection{Stakeholder Submissions}
+Two forms of stakeholder input are analyzed. Structured consultation comments (Comments v1) were submitted during July and August 2025 via the BMWK online platform \cite{bmwi2025konsultation}. A total of 33 organizations participated, including business associations, environmental NGOs, municipal bodies, companies, and \textit{Länder} authorities. These comments explicitly refer to specific articles and paragraphs of Draft v0 and provide directly linkable feedback.
+
+A second set of unstructured statements (Comments v2) stems from the parliamentary expert hearing in November 2025 \cite{bt2025anhoerung}. These take the form of full-text letters without explicit references to single legal provisions. Because of their broader scope, they are compared with the law at the document level.
+
+\subsection{Organizational Characteristics}
+Submissions vary significantly in length and focus. Table \ref{tab:org_summary} reports descriptive statistics at the organization level. The data reveal a clear dominance of industry associations (\textit{Wirtschaftsverbände}) in the consultation process. The BDEW and VKU (Verband kommunaler Unternehmen) are the most active contributors, submitting the highest number of comments (21 and 18, respectively) and producing the most substantial text volume (over 4,000 tokens each).
+
+Interestingly, state ministries (\textit{Länderbehörden}) such as those from NRW and Lower Saxony are also highly active in terms of comment frequency (13--16 comments) but tend to be much more concise, with significantly lower average token counts per comment compared to industry bodies. This suggests a divergence in strategy: while industry groups provide extensive technical or legal argumentation, state actors often submit targeted, concise modification requests.
+
+
+\section{Methodology}
+
+The analysis proceeds in two main steps. First, lexical similarity between successive drafts of the \textit{Geothermiebeschleunigungsgesetz} is measured to identify where the text changes most. Second, semantic similarity between stakeholder input and draft texts is examined to explore whether the wording of the law becomes closer to the language used in stakeholder comments or letters over time. Both steps employ established text comparison techniques widely used in computational legal studies \cite{linder2020policy, kim2021bill, zhang2024semantic}.
+
+Draft texts were kept segmented by paragraph as the unit for analysis. This paragraph-level structure reduces sensitivity to minor editorial changes while reflecting how provisions are debated and revised. Preprocessing remains minimal and includes only normalization of spacing and removal of line-break hyphenation. Stemming or lemmatization is avoided to preserve legal wording and semantic precision \cite{braun2022semantic}.
+
+\subsection{Lexical Change Between Draft Versions}
+Lexical similarity between drafts is measured using term frequency–inverse document frequency (TF–IDF) cosine similarity \cite{manning2008introduction}. This method identifies how much the text of each article or paragraph changes from one version to another. It gives greater weight to terms that are specific to a provision and down-weights common legal expressions, making it well suited to detecting small but meaningful edits.
+
+Paragraphs from all draft versions are aligned based on their structural identifiers so that each comparison involves directly corresponding units. If a paragraph exists in one version but not another, the empty cell signals an insertion or deletion. For each pair of versions, TF–IDF vectors with unigrams and bigrams are computed on the combined corpus using standard implementations \cite{scikit_learn}. Cosine similarity between the aligned paragraphs is then calculated. Missing paragraphs are coded as missing if both sides are empty and as zero if only one version contains text. This makes additions or deletions visible as strong lexical change.
+
+The resulting similarity measures provide an overview of where and when wording was revised or rephrased across the drafting process. This information is used as a baseline for linking textual change to stages in stakeholder consultation.
+
+\subsection{Semantic Alignment Between Comments and Drafts}
+To examine whether stakeholder comments become more closely aligned with later draft versions, similarity between comments and draft texts is computed using sentence embeddings. This approach captures semantic relatedness beyond exact word overlap and is well suited for cases where the same idea is expressed differently \cite{reimers2019sentence}.
+
+Embedding vectors are generated with the multilingual model \texttt{sentence-transformers/
+paraphrase-multilingual-MiniLM-L12-v2} \cite{sbert_models}, which supports German and has been validated for general semantic similarity tasks. Each legislative paragraph and each stakeholder comment is represented as a vector in this shared space. Cosine similarity between these embeddings measures how semantically close each comment is to the corresponding law unit.
+
+For each organization, mean similarity values are summarized by draft version. To track the evolution of alignment, \textit{alignment shift} ($\Delta S$) for a given comment $c$ is defined as the difference in cosine similarity between the final draft ($d_{v3}$) and the initial draft ($d_{v0}$):
+
+\begin{equation}
+    \Delta S(c) = \cos(\mathbf{c}, \mathbf{d}_{v3}) - \cos(\mathbf{c}, \mathbf{d}_{v0})
+\end{equation}
+
+\noindent where $\mathbf{c}$ and $\mathbf{d}$ denote the embedding vectors of the comment and the draft provision, respectively.
+
+Positive values ($\Delta S > 0$) indicate that an organization’s comments align more closely with the final text than with the initial draft, suggesting a convergence of language. Negative values imply that the legislative text moved further away from the stakeholder's position. To reduce sensitivity to model variation, the analysis focuses on relative rather than absolute similarity levels and compares results across types of stakeholders rather than individual cases.
+
+\subsection{Comparison of Stakeholder Letters and Draft Versions}
+A similar procedure is used for unstructured letters submitted during the parliamentary hearing in November 2025. Each letter and each draft law version is treated as a single document. For long texts, the content is divided into smaller chunks, embedded separately, and averaged to obtain one document representation. Semantic similarity between each letter and each draft version is measured with the same embedding model, and changes over time are summarized as differences relative to the baseline draft.
+
+Because these letters comment on the law as a whole rather than specific articles, their analysis serves as an additional check. If policy positions expressed in the hearing letters align more strongly with the later drafts, this would suggest convergence between general stakeholder input and the final legislative formulation.
+
+
+\section{Results}
+
+\subsection{Draft-to-Draft Lexical Similarity}
+
+Lexical similarity between consecutive draft versions is generally high, but the pattern of change differs clearly across stages of the drafting process. Between v0 and v1, similarity values are lower and more dispersed than in later transitions. The mean similarity is 0.86, with a median of 0.93. Around 32\% of paragraphs display near-identical wording (similarity $\ge$ 0.98), while about 2\% are fully replaced (similarity = 0). This marks the first revision as the point at which the text is opened up for more substantial rewording rather than purely editorial changes.
+
+The transition from v1 to v2 (a working period of around 1.5 months) shows the highest lexical stability. Mean similarity reaches 0.99, and the median is effectively 1.0. More than 80\% of paragraphs retain near-identical wording, and no paragraphs are fully replaced. Revisions at this stage are therefore best understood as fine-tuning: minor clarifications, small insertions, and stylistic adjustments rather than broader restructuring of provisions.
+
+Between v2 and v3, similarity remains high, but variation increases again. The mean similarity decreases to 0.88, while the median remains close to 1.0. Around 55\% of paragraphs keep near-identical wording, whereas roughly 8\% are fully replaced. This suggests a selective round of late-stage editing in which only a subset of provisions is revised more deeply, likely in response to parliamentary debate and committee work \cite{bt2025beschluss}.
+
+Comparing v0 and v3 directly highlights the cumulative effect of these changes. The mean similarity drops to 0.76, and fewer than 20\% of paragraphs remain near-identical over the whole drafting process. Approximately 10\% of paragraphs are fully replaced between the initial and final versions. What looks like moderate adjustment between adjacent versions thus adds up to a substantial reshaping of the text, with a stable core surrounded by a set of provisions that undergo notable revision.
+
+Taken together, the lexical results indicate a three-phase trajectory: an early stage of relatively intensive rewording between v0 and v1, a period of near-freeze between v1 and v2, and a final phase of targeted but non-trivial revisions between v2 and v3. This temporal profile provides the backdrop for assessing whether peaks in textual change coincide with consultation phases and external input.
+
+\subsection{Embedding Similarity Between Comments and Draft Versions}
+
+The picture looks different when examining semantic similarity between stakeholder comments and the draft texts using sentence embeddings. Average similarity between comments and the baseline draft v0 varies substantially across organizations, with mean values ranging from roughly 0.34 to 0.77. This spread reflects heterogeneity in how submissions are written: some comments closely mirror the structure and vocabulary of the law, while others adopt a more narrative, argumentative, or advocacy-oriented style.
+
+Across draft versions, changes in similarity are generally small. For most organizations, the alignment shift $\Delta S$ lies close to zero, typically within a few hundredths. At the organization-average level, the semantic relationship between comments and the law text therefore remains largely stable over time. The law undergoes non-trivial lexical change, but these shifts do not translate into pronounced movements toward or away from the language used in stakeholder comments.
+
+A small number of organizations show more pronounced positive shifts. The \textit{Verband der Kali- und Salzindustrie} exhibits a comparatively large increase in similarity between v0 and v1 of about $\Delta S \approx +0.15$, which is largely preserved in v3. The \textit{DVGW} displays a moderate increase of around $\Delta S \approx +0.06$. In these cases, later drafts are semantically closer to the content of the organizations’ comments than the baseline draft. However, both patterns rest on very few matched paragraph pairs, often only one or two, so the resulting values are sensitive to individual comment–law alignments and should not be overinterpreted as broad evidence of influence.
+
+Negative changes in similarity also occur, though again with modest magnitudes. For the \textit{Bund für Umwelt und Naturschutz Deutschland} (BUND) and the \textit{Bundesverband Wärmepumpe e.V.}, average similarity between comments and the law decreases slightly between v0 and v3 (approx. $-0.01$). This indicates that later drafts are marginally less aligned with the wording of these organizations’ comments than the baseline draft, but the effect size is small and well within the range where measurement noise and modeling choices may matter.
+
+Overall, the embedding-based analysis reveals a landscape of small movements around a relatively stable baseline. Both positive and negative changes in semantic similarity occur, but strong shifts are rare and often associated with cases that have few paragraph-level matches. 
+
+Figure \ref{fig:delta_sim_boxplot} displays the distribution of $\Delta S$ values across stakeholder types. The plot confirms that for most groups---including state authorities and environmental NGOs---the median change is effectively zero. Industry associations (\textit{Wirtschaftsverbände}) show the widest dispersion, containing both the highest positive outliers and several negative values. This heterogeneity likely reflects the diversity of interests within this group, ranging from specific technical amendments to broader policy critiques.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{figures/boxplot.png}
+    \caption{Distribution of alignment shifts ($\Delta S = S_{v1} - S_{v0}$) by organization type. The dashed line at zero represents no change in semantic alignment. While the median for all groups is close to zero, industry associations show the greatest variance, driven by a few positive outliers.}
+    \label{fig:delta_sim_boxplot}
+\end{figure}
+
+
+\subsection{Similarity Between Stakeholder Letters and Draft Versions}
+
+These letters were submitted as supplementary material for the expert hearing in the Bundestag on November 5, 2025 \cite{bt2025anhoerung}. Since the hearing took place shortly after the government draft (v2) was introduced, stakeholders were primarily reacting to the earlier versions of the bill (v0 or v1) while advocating for changes to be included in the final committee report (v3).
+
+At the document level, baseline similarity between stakeholder letters and the initial draft v0 is already relatively high, with values ranging from around 0.68 to 0.88. This indicates that, even before later revisions, the letters are semantically close to the early version of the law, despite their more discursive and argumentative style.
+
+When comparing v0 with the December draft v3, the alignment shift $\Delta S$ is positive for the majority of letters. Observed increases usually lie between +0.02 and +0.05, pointing to modest but consistent gains in semantic similarity for several submitters. The largest increases are found for letters from \textit{Stadtwerke München}, expert Fabian Ahrendts (Fraunhofer IEG), and the \textit{Bundesvereinigung der kommunalen Spitzenverbände}, each with a $\Delta S \approx +0.05$.
+
+For \textit{Stadtwerke München}, qualitative inspection suggests that at least two proposals articulated in the letter are more clearly reflected in the December draft than in the baseline version, illustrating how higher similarity can coincide with identifiable textual additions while remaining agnostic about causality. Figure \ref{fig:stadtwerke_compare} illustrates this convergence: specific legal references proposed by the stakeholder - such as the inclusion of § 44a (Veränderungssperre) and § 44b (Besitzeinweisung) of the Energy Industry Act (EnWG) - appear almost verbatim in the final law text, having been absent from the initial draft.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{figures/stadtwerke.png}
+    \caption{Textual comparison between the initial draft (03.07.2025), the stakeholder proposal from Stadtwerke München (30.10.2025), and the final committee draft (03.12.2025). \textbf{Legend:} Red indicates text proposed by the stakeholder that was \textit{not} adopted; Green marks proposals that are present in both the stakeholder letter and the final version; Yellow highlights revisions made to the final draft relative to the initial version. The visual alignment confirms that specific references (e.g., § 44a, § 44b EnWG) requested by the stakeholder were successfully integrated into the final law.}
+    \label{fig:stadtwerke_compare}
+\end{figure}
+
+
+For most other organizations, similarity changes between v0 and v3 are smaller but still positive, consistent with incremental movement toward closer alignment rather than dramatic convergence. One exception is the letter by Prof. Dr. Sven Joachim Otto, for which similarity decreases slightly over time ($\Delta S \approx -0.01$), indicating that later drafts are marginally less aligned with this submission than the baseline draft.
+
+Taken together, the document-level comparison shows small but non-negligible increases in similarity between most stakeholder letters and the final draft. Given the high baseline similarity and the limited magnitude of change, these results point to gradual adjustment rather than pronounced shifts. In light of the November public hearing, the v0–v3 comparison is particularly informative, as any incorporation of positions expressed in the letters would be expected to appear, if at all, in the December draft.
+
+
+\section{Discussion and Limitations}
+
+This study demonstrates that computational text analysis can effectively trace the evolution of a legislative bill, revealing patterns of stability and change that manual reading alone might miss. The application of lexical and semantic similarity metrics to the \textit{Geothermiebeschleunigungsgesetz} uncovers a distinct three-phase trajectory: an initial period of substantial rewording (v0–v1), a "freeze" phase of high stability (v1–v2), and a final round of selective, targeted revisions during parliamentary committee work (v2–v3). This temporal profile aligns with the institutional logic of German lawmaking, where the ministerial draft sets the structural core, while later stages focus on fine-tuning specific legal mechanisms \cite{bmwi2025ref}.
+
+The semantic analysis of stakeholder input suggests that while the law undergoes significant lexical editing, its aggregate alignment with stakeholder language remains remarkably stable. For most organizations, the alignment shift ($\Delta S$) is close to zero, indicating that the consultation process did not fundamentally redirect the bill's semantic orientation. However, the detection of small but consistent positive shifts for specific actors - such as \textit{Stadtwerke München} or the expert hearing letters - shows that the method is sensitive enough to capture incremental convergence. As visualized in the case of § 44a/b EnWG, these metrics can successfully flag instances where external proposals are integrated into the final statute \cite{kim2021bill}.
+
+These findings highlight a crucial distinction between magnitude of change and direction of change. While the cumulative lexical distance between the first and last draft is substantial (approx. 24\% of paragraphs revised), this "churn" does not necessarily imply a shift towards any specific interest group. Instead, it likely reflects the technical refinement of a policy core that was already compatible with the positions of key stakeholders from the outset.
+
+
+Several caveats qualify these results. First, similarity metrics measure textual proximity, not legal effect. A single word change (e.g., "shall" to "may") can alter a provision’s legal substance dramatically without significantly affecting its cosine similarity score. Conversely, extensive stylistic editing might lower similarity scores without changing the normative content. Consequently, computational metrics should be viewed as a diagnostic tool that directs attention to areas of change, rather than a standalone proxy for policy influence \cite{linder2020policy}.
+
+Second, textual convergence does not prove causality. The observed alignment between the final draft and specific stakeholder letters could result from direct uptake, but it could equally stem from independent expert advice, internal administrative review, or parallel advocacy by other actors. Without qualitative process tracing or interview data, these patterns establish correlation in language, not a causal feedback loop \cite{burgess2016legislative}.
+
+Third, the analysis is limited by the scope of observed data. We focused exclusively on formal, written submissions. Informal channels such as hallway conversations, telephone calls, or internal coalition negotiations remain invisible to this method, yet they often drive the most critical compromises. Finally, while paragraph-level alignment proved robust for this specific bill, more radical legislative restructuring might require advanced local sequence alignment techniques, such as the Smith-Waterman algorithm, to accurately track text reuse across non-linear edits \cite{smith2014reuse}.
+
+\section{Future Work}
+
+Future research could scale this approach by automating the retrieval of draft versions via the Bundestag API \cite{dip_api} and scraping consultation data directly from ministerial portals. This would allow for a comparative analysis across multiple legislative procedures, moving from single-case studies to a broader assessment of how different ministry portfolios respond to public consultation.
+
+
+\newpage
+
+\printbibliography
+
+\newpage
+
+\appendix
+\section{Appendix}
+
+\begin{table}[htbp]
+\centering
+\caption{Organization-level descriptive statistics of consultation comments (v1).}
+\label{tab:org_summary}
+
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}      % very tight
+\renewcommand{\arraystretch}{0.95} % slightly tighter rows
+
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrr}
+\toprule
+Organization & Type & \# Comments & \# Articles & Total Tokens & Mean Tokens \\
+\midrule
+BDEW & Wirtschaftsverband & 21 & 6 & 4417 & 210.33 \\
+Verband kommunaler Unternehmen e.V. & Wirtschaftsverband & 18 & 4 & 5479 & 304.39 \\
+Ministerium für Wirtschaft, Industrie, Klimaschutz (NRW) & Land/Landesbehörde & 16 & 4 & 2461 & 153.81 \\
+Bundesverband Geothermie e.\,V. & Wirtschaftsverband & 14 & 3 & 2957 & 211.21 \\
+Bundesverband Erdgas, Erdöl und Geoenergie e.\,V. & Wirtschaftsverband & 14 & 6 & 1476 & 105.43 \\
+Bund für Umwelt und Naturschutz Deutschland e.\,V. & Umweltverband & 13 & 3 & 1504 & 115.69 \\
+Niedersächsisches Ministerium für Wirtschaft & Land/Landesbehörde & 13 & 6 & 629 & 48.38 \\
+Bundesvereinigung der kommunalen Spitzenverbände & Kommunalverband & 12 & 4 & 2647 & 220.58 \\
+Ministerium für Energiewende, Klimaschutz, Umwelt (SH) & Land/Landesbehörde & 11 & 5 & 1179 & 107.18 \\
+Deutsche Umwelthilfe e.\,V. & Umweltverband & 11 & 3 & 2114 & 192.18 \\
+Thüringer Ministerium für Umwelt, Energie, Naturschutz & Land/Landesbehörde & 10 & 3 & 30 & 3.00 \\
+NABU (Naturschutzbund Deutschland) e.\,V. & Umweltverband & 10 & 3 & 1014 & 101.40 \\
+AGFW e.\,V. & Wirtschaftsverband & 10 & 3 & 664 & 66.40 \\
+8KU GmbH & Unternehmen & 9 & 3 & 918 & 102.00 \\
+Stadtwerke München GmbH & Unternehmen & 9 & 4 & 2222 & 246.89 \\
+Ministerium für Wirtschaft, Infrastruktur, Tourismus (MV) & Land/Landesbehörde & 8 & 3 & 1280 & 160.00 \\
+DIHK & Wirtschaftsverband & 6 & 3 & 974 & 162.33 \\
+Oberbergamt des Saarlandes & Land/Landesbehörde & 6 & 1 & 69 & 11.50 \\
+Ministerium für Klimaschutz, Landwirtschaft (MV) & Land/Landesbehörde & 5 & 2 & 288 & 57.60 \\
+Bundesverband Erneuerbare Energie e.\,V. & Wirtschaftsverband & 4 & 2 & 528 & 132.00 \\
+Vulcan Energie Ressourcen GmbH & Unternehmen & 4 & 3 & 615 & 153.75 \\
+Kunststoffrohrverband e.\,V. & Wirtschaftsverband & 3 & 2 & 151 & 50.33 \\
+ISOPLUS GmbH & Unternehmen & 3 & 1 & 1788 & 596.00 \\
+Bundesverband Deutscher Wasserkraftwerke & Wirtschaftsverband & 3 & 2 & 334 & 111.33 \\
+Ministerium für Wissenschaft, Energie, Klimaschutz (ST) & Land/Landesbehörde & 2 & 2 & 85 & 42.50 \\
+Verband der industriellen Energie- und Kraftwirtschaft & Wirtschaftsverband & 2 & 2 & 154 & 77.00 \\
+DVGW & Andere & 2 & 2 & 785 & 392.50 \\
+Hauptstadtbüro Bioenergie & Wirtschaftsverband & 1 & 1 & 263 & 263.00 \\
+Bundesverband Wärmepumpe e.\,V. & Wirtschaftsverband & 1 & 1 & 159 & 159.00 \\
+Verband der Kali- und Salzindustrie & Wirtschaftsverband & 1 & 1 & 193 & 193.00 \\
+BVES e.\,V. & Wirtschaftsverband & 0 & 0 & 0 & 0.00 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+\end{document}
