@@ -30,7 +30,8 @@ repos:
       # Recommended to run linter first of automatic fixes are enabled (as some linting fixes might require reformatting)
       - id: ruff
         #Automatic linting fixes
-        types_or: [ python, pyi]
-        args: [ --fix ]
+        # types_or: [ python, pyi]
+        # args: [ --fix ]
       - id: ruff-format
-        types_or: [ python, pyi]
+        # types_or: [ python, pyi]
+        # args: [ --fix ]

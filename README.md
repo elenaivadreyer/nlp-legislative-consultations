@@ -1,4 +1,7 @@
 # Tracing Consultation Inputs in Legislative Drafting
+### GRAD-E1282 Natural Language Processing (Fall '25) <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Hertie_School_of_Governance_logo.svg/1200px-Hertie_School_of_Governance_logo.svg.png" width="150px" align="right"/>
+
+> This analysis is part of my final project for the course Natural Language Processing (GRAD-E1282) led by Dr. Sascha Göbel at the at Hertie School.
 
 An embedding-based case study analyzing stakeholder influence on the Geothermiebeschleunigungsgesetz (Geothermal Acceleration Act).
 
@@ -22,7 +25,7 @@ The analysis combines four draft versions of the Geothermiebeschleunigungsgesetz
 - **Draft v3** (03.12.2025): Final committee report
 
 **Stakeholder Input:**
-- **Comments v1**: 33 organizations submitted structured, article-level comments via the BMWK online platform
+- **Comments v1**: 33 organizations submitted structured, article-level comments via the BMWE online platform
 - **Comments v2**: Unstructured letters from parliamentary expert hearing (November 2025)
 
 ### Analysis Approach
@@ -51,11 +54,6 @@ The analysis combines four draft versions of the Geothermiebeschleunigungsgesetz
 - **Positive Convergence**: A few organizations (e.g., Stadtwerke München, DVGW) show modest increases in similarity (+0.05 to +0.15), suggesting their language became more aligned with later drafts
 - **Document-Level**: Stakeholder letters from the parliamentary hearing show consistent positive shifts (+0.02 to +0.05) toward the final draft
 
-### Stakeholder Characteristics
-
-- **Industry associations** (*Wirtschaftsverbände*) dominate participation, with BDEW and VKU submitting the most comments (21 and 18 respectively)
-- **State ministries** (*Länderbehörden*) submit more frequent but concise comments, suggesting targeted modification requests rather than extensive argumentation
-- Wide variation in similarity baselines (0.34 to 0.77) reflects heterogeneity in submission styles
 
 ## Repository Structure
 
@@ -66,8 +64,7 @@ nlp_legislative_consultations/
 │   ├── 01_org_analysis.ipynb         # Organization-level statistics
 │   ├── 02_versions_similarity.ipynb  # Lexical change analysis (TF-IDF)
 │   └── 03_embedding_analysis.ipynb   # Semantic alignment (embeddings)
-├── scripts/                  # Data acquisition and preprocessing
-├── writeup/                  # LaTeX research paper
+├── scripts/                  # Data acquisition and preprocessing (not complete)
 └── requirements.txt          # Python dependencies
 ```
 
@@ -84,7 +81,3 @@ pip install -r requirements.txt
 ```
 
 Key dependencies: `pandas`, `numpy`, `scikit-learn`, `sentence-transformers`, `matplotlib`, `seaborn`
-
-## Citation
-
-This analysis is part of a research project at Hertie School. For detailed methodology and discussion, see `writeup/main.tex`.
