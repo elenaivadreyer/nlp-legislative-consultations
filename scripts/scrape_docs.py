@@ -1,14 +1,15 @@
-import os
-import re
 import json
-import requests
-from bs4 import BeautifulSoup
-from urllib.parse import urljoin
-import fitz  # PyMuPDF
-from pathlib import Path
-from typing import List, Dict, Optional
+import re
 import time
 from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional
+from urllib.parse import urljoin
+
+import fitz  # PyMuPDF
+import requests
+from bs4 import BeautifulSoup
+
 
 class BundestagPDFScraper:
     """
@@ -21,12 +22,14 @@ class BundestagPDFScraper:
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(exist_ok=True)
         self.session = requests.Session()
-        self.session.headers.update({
-            'User-Agent': 'BundestagScraper/1.0 (Educational/Research Purpose; +https://github.com/yourrepo)',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
-            'Connection': 'keep-alive',
-        })
+        self.session.headers.update(
+            {
+                "User-Agent": "BundestagScraper/1.0 (Educational/Research Purpose; +https://github.com/yourrepo)",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Accept-Language": "de-DE,de;q=0.9,en;q=0.8",
+                "Connection": "keep-alive",
+            }
+        )
         self.results = []
         self.delay = delay  # Polite delay between requests
         self.last_request_time = 0
@@ -38,6 +41,7 @@ class BundestagPDFScraper:
         Args:
             url: URL to request
             request_type: Type of request for logging ('page' or 'pdf')
+
         """
         # Enforce minimum delay between requests
         elapsed = time.time() - self.last_request_time
@@ -62,17 +66,17 @@ class BundestagPDFScraper:
         Returns: 'Stadtwerke München'
         """
         # Pattern: Remove document number and "Stellungnahme" prefix
-        pattern = r'^\d+\(\d+\)\d+\s+Stellungnahme\s+(?:der\s+|des\s+|von\s+)?(.+?)(?:\s*\(PDF\))?$'
+        pattern = r"^\d+\(\d+\)\d+\s+Stellungnahme\s+(?:der\s+|des\s+|von\s+)?(.+?)(?:\s*\(PDF\))?$"
         match = re.match(pattern, text.strip(), re.IGNORECASE)
 
         if match:
             org_name = match.group(1).strip()
             # Clean up common suffixes
-            org_name = re.sub(r'\s*\(PDF.*?\)$', '', org_name)
+            org_name = re.sub(r"\s*\(PDF.*?\)$", "", org_name)
             return org_name
 
         # Fallback: Try simpler pattern
-        pattern2 = r'Stellungnahme\s+(?:der\s+|des\s+|von\s+)?(.+?)(?:\s*\(PDF\))?$'
+        pattern2 = r"Stellungnahme\s+(?:der\s+|des\s+|von\s+)?(.+?)(?:\s*\(PDF\))?$"
         match2 = re.search(pattern2, text.strip(), re.IGNORECASE)
         if match2:
             return match2.group(1).strip()
@@ -89,15 +93,15 @@ class BundestagPDFScraper:
 
         response = self.polite_request(url, request_type="page")
 
-        soup = BeautifulSoup(response.content, 'html.parser')
+        soup = BeautifulSoup(response.content, "html.parser")
         pdf_links = []
 
         # Find all links that point to PDF resources
-        for link in soup.find_all('a', href=True):
-            href = link['href']
+        for link in soup.find_all("a", href=True):
+            href = link["href"]
 
             # Check if it's a bundestag PDF resource link
-            if '/resource/blob/' in href and href.endswith('.pdf'):
+            if "/resource/blob/" in href and href.endswith(".pdf"):
                 full_url = urljoin(url, href)
                 link_text = link.get_text(strip=True)
 
@@ -105,11 +109,7 @@ class BundestagPDFScraper:
                 org_name = self.extract_organization_name(link_text)
 
                 if org_name:
-                    pdf_links.append({
-                        'organization': org_name,
-                        'pdf_url': full_url,
-                        'link_text': link_text
-                    })
+                    pdf_links.append({"organization": org_name, "pdf_url": full_url, "link_text": link_text})
                     print(f"Found: {org_name} -> {full_url}")
                 else:
                     print(f"Warning: Could not extract org name from: {link_text}")
@@ -122,8 +122,8 @@ class BundestagPDFScraper:
         Returns: Path to downloaded file or None if failed
         """
         # Sanitize organization name for filename
-        safe_name = re.sub(r'[^\w\s-]', '', organization)
-        safe_name = re.sub(r'[-\s]+', '_', safe_name)
+        safe_name = re.sub(r"[^\w\s-]", "", organization)
+        safe_name = re.sub(r"[-\s]+", "_", safe_name)
         filename = f"{safe_name}.pdf"
         filepath = self.output_dir / filename
 
@@ -131,7 +131,7 @@ class BundestagPDFScraper:
             print(f"Downloading: {organization}...")
             response = self.polite_request(pdf_url, request_type="pdf")
 
-            with open(filepath, 'wb') as f:
+            with open(filepath, "wb") as f:
                 f.write(response.content)
 
             print(f"✓ Saved to: {filepath}")
@@ -152,12 +152,12 @@ class BundestagPDFScraper:
 
             # Extract metadata
             metadata = {
-                'pages': doc.page_count,
-                'title': doc.metadata.get('title', ''),
-                'author': doc.metadata.get('author', ''),
-                'subject': doc.metadata.get('subject', ''),
-                'creator': doc.metadata.get('creator', ''),
-                'producer': doc.metadata.get('producer', ''),
+                "pages": doc.page_count,
+                "title": doc.metadata.get("title", ""),
+                "author": doc.metadata.get("author", ""),
+                "subject": doc.metadata.get("subject", ""),
+                "creator": doc.metadata.get("creator", ""),
+                "producer": doc.metadata.get("producer", ""),
             }
 
             # Extract text from each page
@@ -172,20 +172,10 @@ class BundestagPDFScraper:
 
             full_text = "\n\n".join(text_parts)
 
-            return {
-                'text': full_text,
-                'metadata': metadata,
-                'success': True,
-                'error': None
-            }
+            return {"text": full_text, "metadata": metadata, "success": True, "error": None}
 
         except Exception as e:
-            return {
-                'text': '',
-                'metadata': {},
-                'success': False,
-                'error': str(e)
-            }
+            return {"text": "", "metadata": {}, "success": False, "error": str(e)}
 
     def extract_text_from_pdf(self, pdf_path: Path) -> Dict[str, any]:
         """
@@ -198,57 +188,57 @@ class BundestagPDFScraper:
         """
         Download PDF and extract text for a single document.
         """
-        organization = doc_info['organization']
-        pdf_url = doc_info['pdf_url']
+        organization = doc_info["organization"]
+        pdf_url = doc_info["pdf_url"]
 
         # Download PDF
         pdf_path = self.download_pdf(pdf_url, organization)
 
         if not pdf_path:
             return {
-                'organization': organization,
-                'pdf_url': pdf_url,
-                'status': 'download_failed',
-                'text': None,
-                'filepath': None,
-                'metadata': {},
-                'error': 'Download failed'
+                "organization": organization,
+                "pdf_url": pdf_url,
+                "status": "download_failed",
+                "text": None,
+                "filepath": None,
+                "metadata": {},
+                "error": "Download failed",
             }
 
         # Extract text and metadata
         extraction_result = self.extract_text_from_pdf(pdf_path)
 
-        if extraction_result['success']:
-            text = extraction_result['text']
-            metadata = extraction_result['metadata']
+        if extraction_result["success"]:
+            text = extraction_result["text"]
+            metadata = extraction_result["metadata"]
 
             result = {
-                'organization': organization,
-                'pdf_url': pdf_url,
-                'status': 'success',
-                'text': text,
-                'filepath': str(pdf_path),
-                'text_length': len(text),
-                'page_count': metadata.get('pages', 0),
-                'metadata': metadata,
-                'error': None
+                "organization": organization,
+                "pdf_url": pdf_url,
+                "status": "success",
+                "text": text,
+                "filepath": str(pdf_path),
+                "text_length": len(text),
+                "page_count": metadata.get("pages", 0),
+                "metadata": metadata,
+                "error": None,
             }
 
             # Save extracted text
-            text_file = pdf_path.with_suffix('.txt')
-            with open(text_file, 'w', encoding='utf-8') as f:
+            text_file = pdf_path.with_suffix(".txt")
+            with open(text_file, "w", encoding="utf-8") as f:
                 f.write(text)
 
             print(f"✓ Extracted {len(text)} characters from {metadata.get('pages', 0)} pages\n")
         else:
             result = {
-                'organization': organization,
-                'pdf_url': pdf_url,
-                'status': 'extraction_failed',
-                'text': None,
-                'filepath': str(pdf_path),
-                'metadata': {},
-                'error': extraction_result['error']
+                "organization": organization,
+                "pdf_url": pdf_url,
+                "status": "extraction_failed",
+                "text": None,
+                "filepath": str(pdf_path),
+                "metadata": {},
+                "error": extraction_result["error"],
             }
             print(f"✗ Extraction failed: {extraction_result['error']}\n")
 
@@ -260,6 +250,7 @@ class BundestagPDFScraper:
 
         Args:
             url: Bundestag page URL
+
         """
         start_time = datetime.now()
 
@@ -302,7 +293,7 @@ class BundestagPDFScraper:
         """Save processing summary to JSON file."""
         summary_file = self.output_dir / "summary.json"
 
-        with open(summary_file, 'w', encoding='utf-8') as f:
+        with open(summary_file, "w", encoding="utf-8") as f:
             json.dump(self.results, f, ensure_ascii=False, indent=2)
 
         print(f"\n✓ Summary saved to: {summary_file}")
@@ -314,12 +305,12 @@ class BundestagPDFScraper:
         print("=" * 70)
 
         total = len(self.results)
-        successful = sum(1 for r in self.results if r['status'] == 'success')
-        failed_download = sum(1 for r in self.results if r['status'] == 'download_failed')
-        failed_extraction = sum(1 for r in self.results if r['status'] == 'extraction_failed')
+        successful = sum(1 for r in self.results if r["status"] == "success")
+        failed_download = sum(1 for r in self.results if r["status"] == "download_failed")
+        failed_extraction = sum(1 for r in self.results if r["status"] == "extraction_failed")
 
-        total_chars = sum(r.get('text_length', 0) for r in self.results if r['status'] == 'success')
-        total_pages = sum(r.get('page_count', 0) for r in self.results if r['status'] == 'success')
+        total_chars = sum(r.get("text_length", 0) for r in self.results if r["status"] == "success")
+        total_pages = sum(r.get("page_count", 0) for r in self.results if r["status"] == "success")
 
         print(f"Total documents: {total}")
         print(f"Successfully processed: {successful}")
@@ -350,8 +341,8 @@ if __name__ == "__main__":
         print(f"\nOrganization: {result['organization']}")
         print(f"Status: {result['status']}")
         print(f"Pages: {result.get('page_count', 'N/A')}")
-        if result.get('text'):
+        if result.get("text"):
             print(f"Text preview: {result['text'][:200]}...")
-        if result.get('metadata'):
+        if result.get("metadata"):
             print(f"PDF Title: {result['metadata'].get('title', 'N/A')}")
             print(f"PDF Author: {result['metadata'].get('author', 'N/A')}")

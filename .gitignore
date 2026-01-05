@@ -170,3 +170,5 @@ data/processed/*
 results/*
 !results/.gitkeep
 !results/README.md
+
+!notebooks/archive/*
